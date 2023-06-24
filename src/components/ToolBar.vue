@@ -19,9 +19,12 @@ export default {
 </script>
 <style scoped>
 
-.tool-bar {
+.toolbar {
   display: flex;
   justify-content: space-between;
 }
 
+.toolbar__create-category-button{
+  margin-right: 16px;
+}
 </style>

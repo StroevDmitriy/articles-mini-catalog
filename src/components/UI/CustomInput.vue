@@ -65,6 +65,7 @@ export default {
   top: 50%;
   transform: translateY(-50%);
   right: 16px;
+  pointer-events: none;
 }
 
 .custom-input__placeholder {

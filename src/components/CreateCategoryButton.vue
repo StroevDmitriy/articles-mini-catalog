@@ -23,7 +23,6 @@ export default {
 
 .create-category-button {
   position: relative;
-  margin-right: 16px;
   padding-right: 48px;
 }
 
