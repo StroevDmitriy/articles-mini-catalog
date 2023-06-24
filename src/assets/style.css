@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-* {
+body {
+  margin: 32px 0;
   font-family: Montserrat, sans-serif;
 }
 
-body {
-  margin: 32px 0;
-}
-
-main {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container{
   width: 1236px;
   margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
