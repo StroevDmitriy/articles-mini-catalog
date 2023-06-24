@@ -5,7 +5,9 @@
       class="custom-input__field"
     >
 
-    <div class="custom-input__placeholder">{{ placeholder }}</div>
+    <div class="custom-input__placeholder">
+      {{ placeholder }}
+    </div>
 
     <div class="custom-input__icon">
       <img :src="require('@/assets/svg/' + icoName + '.svg')"/>
