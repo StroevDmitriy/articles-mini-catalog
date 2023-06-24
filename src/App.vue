@@ -1,16 +1,16 @@
 <template>
   <main>
-    <ToolRaw />
+    <ToolBar />
   </main>
 </template>
 
 <script>
-import ToolRaw from './components/ToolRaw.vue';
+import ToolBar from './components/ToolBar.vue';
 
 export default {
   name: 'App',
   components: {
-    ToolRaw
+    ToolBar
   }
 }
 </script>
