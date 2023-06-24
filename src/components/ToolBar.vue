@@ -1,6 +1,8 @@
 <template>
-  <div class="tool-bar">
-    <CreateCategoryButton />
+  <div class="toolbar">
+    <CreateCategoryButton
+      class="toolbar__create-category-button"
+    />
     <ArticleSearchLine />
   </div>
 </template>
