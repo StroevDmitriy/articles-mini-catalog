@@ -5,23 +5,49 @@
     </header>
     <main>
       <section class="articles-list">
+        <ArticleCard 
+          previewName="article-image"
+        />
+        <ArticleCard 
+          previewName="article-image"
+        />
+        <ArticleCard 
+          previewName="article-image"
+        />
+        <ArticleCard 
+          previewName="article-image"
+        />
+        <ArticleCard 
+          previewName="article-image"
+        />
+        <ArticleCard 
+          previewName="article-image"
+        />
+        <ArticleCard 
+          previewName="article-image"
+        />
+      </section>
+
+      <!-- <section class="articles-list">
         <strong>Пока нет статей</strong>
         <p>Создайте свою первую  категорию и добавьте в неё статьи.</p>
         <CreateCategoryButton />
-      </section>
+      </section> -->
     </main>
   </div>
 </template>
 
 <script>
 import ToolBar from './components/ToolBar.vue';
-import CreateCategoryButton from './components/CreateCategoryButton.vue';
+// import CreateCategoryButton from './components/CreateCategoryButton.vue';
+import ArticleCard from './components/ArticleCard.vue'
 
 export default {
   name: 'App',
   components: {
     ToolBar,
-    CreateCategoryButton
+    ArticleCard
+    // CreateCategoryButton
   }
 }
 </script>
@@ -30,11 +56,10 @@ export default {
 .articles-list {
   display: flex;
   margin: 144px auto 0;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  width: 260px;
+  gap: 24px;
   font-size: 14px;
-  text-align: center;
 }
 
 .articles-list strong {
