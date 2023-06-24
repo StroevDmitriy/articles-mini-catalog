@@ -30,6 +30,7 @@ export default {
   position: absolute;
   content: '+';
   top: 50%;
+  right: 21px;
   transform: translateY(calc(-50% - 2px));
   margin-left: 13px;
   font-size: 30px;

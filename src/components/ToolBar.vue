@@ -24,6 +24,7 @@ export default {
 .toolbar {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 48px;
 }
 
 .toolbar__create-category-button{

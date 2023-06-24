@@ -5,13 +5,25 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
-.container{
+strong {
+  font-weight: 600;
+}
+
+.container {
   width: 1236px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-strong {
-  font-weight: 600;
+button {
+  display: flex;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: none;
 }
