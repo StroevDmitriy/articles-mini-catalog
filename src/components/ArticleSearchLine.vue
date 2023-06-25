@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CustomInput from './UI/CustomInput.vue';
+import CustomInput from "./UI/CustomInput.vue";
 
 export default {
   name: "article-search-line",

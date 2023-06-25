@@ -9,7 +9,7 @@
 
 <script>
 import CreateCategoryButton from './CreateCategoryButton.vue';
-import ArticleSearchLine from './ArticleSearchLine.vue';
+import ArticleSearchLine from "./ArticleSearchLine.vue";
 
 export default {
   name: "tool-bar",

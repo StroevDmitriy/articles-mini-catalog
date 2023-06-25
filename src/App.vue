@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import ToolBar from './components/ToolBar.vue';
 // import CreateCategoryButton from './components/CreateCategoryButton.vue';
 import ArticleCard from './components/ArticleCard.vue'
+import ToolBar from "./components/ToolBar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     ToolBar,
     ArticleCard
