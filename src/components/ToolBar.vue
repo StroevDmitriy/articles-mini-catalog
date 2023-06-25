@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CreateCategoryButton from './CreateCategoryButton.vue';
+import CreateCategoryButton from "./CreateCategoryButton.vue";
 import ArticleSearchLine from "./ArticleSearchLine.vue";
 
 export default {
