@@ -4,16 +4,19 @@
       <button
         type="button"
         class="article-card__like-button"
+        @click="toggleLike"
       >
         <img
           src="../assets/svg/like_default.svg"
           alt="Like"
+          v-if="!liked"
         >
-        <!-- <img
+        <img
           src="../assets/svg/like_active.svg"
           alt="Like"
-        > -->
-        40
+          v-else
+        >
+        {{ likes }}
       </button>
       <button
         type="button"
@@ -47,8 +50,17 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      liked: false,
+      likes: 500,
+    };
   },
+  methods: {
+    toggleLike() {
+      this.liked ? this.likes-- : this.likes++
+      this.liked = !this.liked
+    }
+  }
 };
 
 </script>
