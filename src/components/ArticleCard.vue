@@ -80,7 +80,7 @@ export default {
 
 .article-card__title {
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.5;
   margin-bottom: 8px;
 }
