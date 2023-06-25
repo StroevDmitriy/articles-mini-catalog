@@ -7,6 +7,7 @@
         'action-button': buttonType === 'action',
         'passive-button': buttonType === 'passive',
         'inactive-button': buttonType === 'inactive',
+        'custom-button__full-width': fullWidth,
       },
     ]"
   >{{ buttonLabel }} </button>
@@ -27,6 +28,10 @@ export default {
       validator(value) {
         return ["action", "passive"].includes(value)
       }
+    },
+    fullWidth: {
+      default: false,
+      type: Boolean
     }
   },
   data() {
@@ -81,5 +86,9 @@ export default {
 .passive-button:disabled {
   color: #fff;
   background-color: rgba(197, 199, 208, 1);
+}
+
+.custom-button__full-width {
+  width: 100%;
 }
 </style>

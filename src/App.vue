@@ -6,18 +6,21 @@
     <main>
       <CategoryList />
     </main>
+    <NewCategoryPopup />
   </div>
 </template>
 
 <script>
 import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
+import NewCategoryPopup from "./components/popUps/NewCategoryPopup.vue";
 
 export default {
   name: "App",
   components: {
     ToolBar,
     CategoryList,
+    NewCategoryPopup,
   }
 }
 </script>
