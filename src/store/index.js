@@ -45,15 +45,19 @@ export default new Vuex.Store({
     ],
     categories: [
       {
-        id: 0,
         title: "First category",
-        parentCategory: [],
+        parentCategory: "",
+        articlesID: [],
       }
     ],
+    isNewCategoryPopupVisible: false,
   },
   getters: {
     articles: state => {
-      return state.articles
+      return state.articles;
+    },
+    isNewCategoryPopupVisible: state => {
+      return state.isNewCategoryPopupVisible;
     }
   },
   mutations: {
@@ -66,20 +70,36 @@ export default new Vuex.Store({
       } else if ("liked" in article && !liked) {
         article.likes++;
       } else {
-        Vue.set(article, "likes", 1)
+        Vue.set(article, "likes", 1);
       }
 
       if ("liked" in article) {
         article.liked = !article.liked;
       } else {
-        Vue.set(article, "liked", true)
+        Vue.set(article, "liked", true);
       }
     },
+    toggleNewCategoryPopup: (state) => {
+      state.isNewCategoryPopupVisible = !state.isNewCategoryPopupVisible;
+    },
+    createCategory: (state, payload) => {
+      state.categories.push({
+        title: payload.newCategoryName,
+        parentCategory: payload.newCategoryParent,
+        articlesID: payload.newCategoryArticles
+      })
+    }
   },
   actions: {
-    toggleArticleLike(context, payload) {
-      context.commit("toggleArticleLike", payload);
-    }
+    toggleArticleLike({ commit }, payload) {
+      commit("toggleArticleLike", payload);
+    },
+    toggleNewCategoryPopup({ commit }) {
+      commit("toggleNewCategoryPopup");
+    },
+    createCategory({ commit }, payload) {
+      commit("createCategory", payload);
+    },
   },
   modules: {},
 });

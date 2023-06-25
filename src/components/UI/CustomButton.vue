@@ -10,6 +10,7 @@
         'custom-button__full-width': fullWidth,
       },
     ]"
+    @click="click"
   >{{ buttonLabel }} </button>
 </template>
 
@@ -37,8 +38,11 @@ export default {
   data() {
     return {};
   },
-  created() {},
-  mounted() {},
+  methods: {
+    click() {
+      this.$emit("click");
+    }
+  }
 };
 
 </script>

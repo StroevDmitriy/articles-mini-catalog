@@ -3,11 +3,13 @@
     button-label="Создать категорию"
     button-type="action"
     class="create-category-button"
+    @click="openNewCategoryPopup"
   />
 </template>
 
 <script>
 import CustomButton from "./UI/CustomButton.vue";
+import store from "@/store";
 
 export default {
   name: "create-category-button",
@@ -17,6 +19,11 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    openNewCategoryPopup() {
+      store.dispatch("toggleNewCategoryPopup");
+    }
+  }
 };
 </script>
 <style scoped>

@@ -3,6 +3,8 @@
     <input
       type="text"
       class="custom-input__field"
+      @change="inputValueChanged($event)"
+      placeholder=" "
     >
 
     <div
@@ -48,11 +50,24 @@ export default {
     type: {
       type: String,
       default: "input",
+    },
+    fieldName: {
+      type: String,
+      default: "",
     }
   },
   data() {
-    return {};
+    return {
+    };
   },
+  methods: {
+    inputValueChanged(e) {
+      this.$emit("valueChanged", {
+        name: this.fieldName,
+        value: e.target.value,
+      });
+    }
+  }
 };
 </script>
 <style scoped>
@@ -106,8 +121,13 @@ export default {
   outline-width: 0px;
 }
 
-.custom-input__field:focus + .custom-input__placeholder {
-  top: 5px;
+.custom-input__field::placeholder {
+  color: transparent;
+}
+
+.custom-input__field:focus + .custom-input__placeholder,
+.custom-input__field:not(:placeholder-shown) + .custom-input__placeholder {
+  top: 3px;
   transform: translateY(0%);
   font-size: 11px;
 }
