@@ -4,50 +4,20 @@
       <ToolBar />
     </header>
     <main>
-      <section class="articles-list">
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-      </section>
-
-      <!-- <section class="articles-list">
-        <strong>Пока нет статей</strong>
-        <p>Создайте свою первую  категорию и добавьте в неё статьи.</p>
-        <CreateCategoryButton />
-      </section> -->
+      <CategoryList />
     </main>
   </div>
 </template>
 
 <script>
-// import CreateCategoryButton from './components/CreateCategoryButton.vue';
-import ArticleCard from './components/ArticleCard.vue'
 import ToolBar from "./components/ToolBar.vue";
+import CategoryList from "./components/CategoryList.vue";
 
 export default {
   name: "App",
   components: {
     ToolBar,
-    ArticleCard
-    // CreateCategoryButton
+    CategoryList,
   }
 }
 </script>
