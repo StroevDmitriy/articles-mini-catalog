@@ -99,6 +99,7 @@ export default new Vuex.Store({
     },
     createCategory({ commit }, payload) {
       commit("createCategory", payload);
+      commit("toggleNewCategoryPopup");
     },
   },
   modules: {},
