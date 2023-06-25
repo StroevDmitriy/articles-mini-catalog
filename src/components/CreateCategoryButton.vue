@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import CustomButton from "./UI/CustomButton.vue"
+import CustomButton from "./UI/CustomButton.vue";
 
 export default {
   name: "create-category-button",

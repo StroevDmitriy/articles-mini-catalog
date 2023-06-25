@@ -12,7 +12,7 @@
           @click="toggleCategoryVisibility"
         >
           <img
-            src="../assets/svg/select-down.svg"
+            src="../assets/svg/chevron-down.svg"
             alt="Show/Hide"
           >
         </button>

@@ -5,14 +5,28 @@
       class="custom-input__field"
     >
 
-    <div class="custom-input__placeholder">
-      {{ placeholder }}
-    </div>
+    <div
+      v-if="placeholder"
+      class="custom-input__placeholder"
+    >{{ placeholder }}</div>
 
-    <div class="custom-input__icon">
+    <div
+      v-if="icoName"
+      class="custom-input__icon"
+    >
       <img
         :src="require(`@/assets/svg/${icoName}.svg`)" 
         alt="Icon"
+      />
+    </div>
+
+    <div
+      v-if="type === 'select'"
+      class="custom-input__icon"
+    >
+      <img
+        src="../../assets/svg/select-down.svg"
+        alt="Select ico"
       />
     </div>
   </div>
@@ -25,15 +39,15 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: 'Custom placeholder',
+      default: "Custom placeholder",
     },
     icoName: {
       type: String,
-      default: '',
+      default: "",
     },
     type: {
       type: String,
-      default: 'input',
+      default: "input",
     }
   },
   data() {
@@ -78,6 +92,9 @@ export default {
   transform: translateY(-50%);
   transition: all .3s;
   color: #A0A6BF;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
   pointer-events: none;
 }
 

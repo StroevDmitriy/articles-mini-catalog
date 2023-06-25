@@ -34,6 +34,10 @@ button:focus-visible {
   outline: none;
 }
 
+fieldset {
+  padding: 0px;
+}
+
 .container {
   width: 1236px;
   margin: 0 auto;
