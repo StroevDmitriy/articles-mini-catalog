@@ -5,19 +5,31 @@
         type="button"
         class="article-card__like-button"
       >
-        <img src="../assets/svg/like_default.svg" alt="Like">
-        <!-- <img src="../assets/svg/like_active.svg" alt="Like"> -->
+        <img
+          src="../assets/svg/like_default.svg"
+          alt="Like"
+        >
+        <!-- <img
+          src="../assets/svg/like_active.svg"
+          alt="Like"
+        > -->
         40
       </button>
       <button
         type="button"
         class="article-card__edit-button"
       >
-        <img src="../assets/svg/pen.svg" alt="Like">
+        <img
+          src="../assets/svg/pen.svg"
+          alt="Like"
+        >
       </button>
     </div>
     <div class="article-card__preview-container">
-      <img :src="require(`@/assets/images/${previewName}.png`)"  alt="Article preview"/>
+      <img
+        :src="require(`@/assets/images/${previewName}.png`)" 
+        alt="Article preview"
+      />
     </div>
     <h4 class="article-card__title">Заголовок</h4>
     <p class="article-card__description">Идейные соображения высшего порядка, а также сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий. Равным образом начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки направлений прогрессивного развития.</p>

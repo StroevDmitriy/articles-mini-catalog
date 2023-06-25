@@ -18,14 +18,14 @@ export default {
   components: {},
   props: {
     buttonLabel: {
-      default: 'Текст кнопки',
+      default: "Текст кнопки",
       type: String
     },
     buttonType: {
-      default: 'passive',
+      default: "passive",
       type: String,
       validator(value) {
-        return ['action', 'passive'].includes(value)
+        return ["action", "passive"].includes(value)
       }
     }
   },

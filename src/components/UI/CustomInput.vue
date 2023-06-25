@@ -10,7 +10,10 @@
     </div>
 
     <div class="custom-input__icon">
-      <img :src="require(`@/assets/svg/${icoName}.svg`)"  alt="Icon"/>
+      <img
+        :src="require(`@/assets/svg/${icoName}.svg`)" 
+        alt="Icon"
+      />
     </div>
   </div>
 </template>
