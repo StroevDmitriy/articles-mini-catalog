@@ -52,32 +52,21 @@
         { 'articles_hided': !isCategoryShown }
       ]">
       <section
+        v-if="articles.length"
         class="articles__list"
       >
         <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
-        />
-        <ArticleCard 
-          previewName="article-image"
+          v-for="article in articles"
+          :key="article.id"
+          :title="article.title"
+          :previewName="article.imgName"
+          :description="article.description"
+          :likes="article.likes"
         />
       </section>
   
       <section
+        v-else
         class="articles__empty-list-message"
       >
         <strong>Пока нет статей</strong>
@@ -89,6 +78,7 @@
 </template>
 
 <script>
+import store from "@/store";
 import ArticleCard from "./ArticleCard.vue";
 import CreateCategoryButton from "./CreateCategoryButton.vue";
 
@@ -103,6 +93,11 @@ export default {
       isCategoryShown: true,
       isCategoryMenuShown: false,
     };
+  },
+  computed: {
+    articles() {
+      return store.getters.articles
+    }
   },
   methods: {
     toggleCategoryVisibility() {

@@ -34,8 +34,8 @@
         alt="Article preview"
       />
     </div>
-    <h4 class="article-card__title">Заголовок</h4>
-    <p class="article-card__description">Идейные соображения высшего порядка, а также сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий. Равным образом начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки направлений прогрессивного развития.</p>
+    <h4 class="article-card__title">{{ title }}</h4>
+    <p class="article-card__description">{{ description }}</p>
   </article>
 </template>
 
@@ -46,8 +46,20 @@ export default {
   props: {
     previewName: {
       type: String,
-      default: ""
-    }
+      default: "article-image",
+    },
+    title : {
+      type: String,
+      default: "Нет заголовка",
+    },
+    description: {
+      type: String,
+      default: "Нет описания",
+    },
+    likes: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
