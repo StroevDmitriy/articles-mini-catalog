@@ -4,7 +4,7 @@
       <button
         type="button"
         class="article-card__like-button"
-        @click="toggleLike"
+        @click="toggleLike($vnode.key, liked)"
       >
         <img
           src="../assets/svg/like_default.svg"
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   name: "article-card",
   components: {},
@@ -60,17 +62,17 @@ export default {
       type: Number,
       default: 0,
     },
+    liked: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
-    return {
-      liked: false,
-      likes: 500,
-    };
+    return { };
   },
   methods: {
-    toggleLike() {
-      this.liked ? this.likes-- : this.likes++
-      this.liked = !this.liked
+    toggleLike(id, liked) {
+      store.dispatch("toggleArticleLike", { id, liked })
     }
   }
 };

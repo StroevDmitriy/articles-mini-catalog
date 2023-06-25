@@ -62,6 +62,7 @@
           :previewName="article.imgName"
           :description="article.description"
           :likes="article.likes"
+          :liked="article.liked"
         />
       </section>
   
@@ -114,8 +115,13 @@ export default {
 </script>
 
 <style scoped>
+.articles {
+  transform-origin: 50% 0;
+  transition: transform .2s;
+}
+
 .articles_hided {
-  display: none;
+  transform: scaleY(0);
 }
 
 .articles__list {
@@ -208,7 +214,7 @@ export default {
   padding: 8px 9px;
   box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.17);
   gap: 4px;
-  transform-origin: 50% 0px;
+  transform-origin: 50% 0;
   transition: transform .2s;
 }
 
