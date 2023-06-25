@@ -2,6 +2,7 @@
   <section class="category">
     <div class="category__header">
       <h2>Название категории <span>(4)</span></h2>
+      <!-- <h3>Название подкатегории <span>(4)</span></h3> -->
       <div class="category__buttons">
         <button
           :class="[
@@ -20,6 +21,7 @@
           <button
             class="category__menu-button"
             @click="toggleCategoryMenuVisibility"
+            v-click-outside="onClickOutside"
           >
             <img
               src="../assets/svg/menu.svg"
@@ -29,7 +31,7 @@
           <div class="category__menu"
             :class="[
               'category__menu',
-              { 'category__menu_collapsed': isCategoryMenuShown }
+              { 'category__menu_collapsed': !isCategoryMenuShown }
             ]"
           >
             <button
@@ -47,9 +49,7 @@
     <section
       :class="[
         'articles',
-        {
-          'articles_is-shown': !isCategoryShown
-        }
+        { 'articles_hided': !isCategoryShown }
       ]">
       <section
         class="articles__list"
@@ -110,13 +110,16 @@ export default {
     },
     toggleCategoryMenuVisibility() {
       this.isCategoryMenuShown = !this.isCategoryMenuShown
+    },
+    onClickOutside() {
+      this.isCategoryMenuShown = false
     }
   }
 };
 </script>
 
 <style scoped>
-.articles_is-shown {
+.articles_hided {
   display: none;
 }
 
@@ -156,7 +159,7 @@ export default {
   justify-content: space-between;
 }
 
-.category__header h2 span{
+.category__header span {
   color: #A0A6BF;
   font-size: 16px;
   font-weight: 600;
@@ -164,8 +167,23 @@ export default {
   vertical-align: top;
 }
 
+.category__header h3 {
+  margin-left: 16px;
+}
+
 .category__buttons {
   display: flex;
+}
+
+.category__button {
+  width: 143px;
+  padding: 6px 8px 6px 8px;
+  border-radius: 5px;
+  color: #4D5163;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
 }
 
 .category__toggle-collapse {
@@ -195,20 +213,11 @@ export default {
   padding: 8px 9px;
   box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.17);
   gap: 4px;
-}
-
-.category__button {
-  width: 143px;
-  padding: 6px 8px 6px 8px;
-  border-radius: 5px;
-  color: #4D5163;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 22px;
-  text-align: left;
+  transform-origin: 50% 0px;
+  transition: transform .2s;
 }
 
 .category__menu_collapsed {
-  display: none;
+  transform: scaleY(0);
 }
 </style>
