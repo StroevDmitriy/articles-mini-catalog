@@ -3,8 +3,13 @@
     <input
       type="text"
       class="custom-input__field"
-      @change="inputValueChanged($event)"
       placeholder=" "
+      :value="value"
+      @click="inputClicked($event.target.value)"
+      @input="inputValueInputed($event.target.value)"
+      @change="inputValueChanged($event.target.value)"
+      @blur="inputBlurred"
+      :readonly="noType"
     >
 
     <div
@@ -54,6 +59,14 @@ export default {
     fieldName: {
       type: String,
       default: "",
+    },
+    value: {
+      type: String,
+      default: "",
+    },
+    noType: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -61,11 +74,23 @@ export default {
     };
   },
   methods: {
-    inputValueChanged(e) {
-      this.$emit("valueChanged", {
+    inputClicked() {
+      this.$emit("click", this.fieldName);
+    },
+    inputValueInputed(value) {
+      this.$emit("input", {
         name: this.fieldName,
-        value: e.target.value,
+        value,
       });
+    },
+    inputValueChanged(value) {
+      this.$emit("change", {
+        name: this.fieldName,
+        value,
+      });
+    },
+    inputBlurred() {
+      this.$emit("blur");
     }
   }
 };

@@ -45,8 +45,27 @@ export default new Vuex.Store({
     ],
     categories: [
       {
+        categoryId: 0,
+        title: "Название категории1",
+        childCategories: [],
+        articlesID: [0,1,2,4,5,6],
+      },
+      {
+        categoryId: 1,
         title: "First category",
-        parentCategory: "",
+        childCategories: [],
+        articlesID: [],
+      },
+      {
+        categoryId: 3,
+        title: "Second category",
+        childCategories: [],
+        articlesID: [],
+      },
+      {
+        categoryId: 4,
+        title: "Second category 2",
+        childCategories: [],
         articlesID: [],
       }
     ],
@@ -58,6 +77,15 @@ export default new Vuex.Store({
     },
     isNewCategoryPopupVisible: state => {
       return state.isNewCategoryPopupVisible;
+    },
+    getAllCategories: state => {
+      return state.categories;
+    },
+    getCategoryByName: state => value => {
+      return state.categories.filter(category => {
+        if (!category.title) return false;
+        return category.title.toLowerCase().includes(value.toLowerCase());
+      });
     }
   },
   mutations: {
@@ -87,7 +115,7 @@ export default new Vuex.Store({
         title: payload.newCategoryName,
         parentCategory: payload.newCategoryParent,
         articlesID: payload.newCategoryArticles
-      })
+      });
     }
   },
   actions: {

@@ -16,19 +16,41 @@
             type="input"
             placeholder="Название"
             class="new-category-popup__input"
-            @valueChanged="valueChanged($event.value, 'newCategoryName')"
+            @change="onInputChanged($event.value, 'newCategoryName')"
           />
-          <CustomInput
-            type="select"
-            placeholder="Родительская карточка (необязательно)"
-            class="new-category-popup__input"
-            @valueChanged="valueChanged($event.value, 'newCategoryParent')"
-          />
+          <div class="new-category-popup__input-container">
+            <CustomInput
+              type="select"
+              placeholder="Родительская категория (необязательно)"
+              class="new-category-popup__input"
+              fieldName="parentCategoryOptions"
+              :value="newCategoryParent"
+              noType
+              @input="onInputInputed"
+              @click="clickNewCategoryParent($event)"
+              @blur.prevent="hideOptions('parentCategoryOptions')"
+            />
+            
+            <div
+              class="new-category-popup__select-options"
+              v-show="parentCategoryOptions.isVisible"
+            >
+              <button
+                v-for="option in parentCategoryOptions.value"
+                :key="option.categoryId"
+                class="new-category-popup__select-option"
+                type="button"
+                @click="chooseOption(option, 'parentCategoryOptions')"
+              >
+                {{ option.title }}
+              </button>
+            </div>
+          </div>
           <CustomInput
             type="select"
             placeholder="Вложенные статьи"
             class="new-category-popup__input"
-            @valueChanged="valueChanged($event.value, 'newCategoryArticles')"
+            @change="onInputChanged($event.value, 'newCategoryArticles')"
           />
         </fieldset>
         <fieldset class="new-category-popup__buttons">
@@ -37,7 +59,7 @@
             buttonType="action"
             class="new-category-popup__button new-category-popup__save-button"
             :fullWidth="true"
-            @click="createNewCategory"
+            @click="createCategory"
           />
           <CustomButton
             buttonLabel="Отмена"
@@ -68,19 +90,23 @@ export default {
       newCategoryName: "",
       newCategoryParent: "",
       newCategoryArticles: "",
+      parentCategoryOptions: {
+        isVisible: false,
+        value: [],
+      },
+      categoryArticlesOptions: {
+        isVisible: false,
+        value: [],
+      },
     };
   },
   computed: {
     isNewCategoryPopupVisible() {
-      return store.getters.isNewCategoryPopupVisible
-    }
+      return store.getters.isNewCategoryPopupVisible;
+    },
   },
   methods: {
-    valueChanged(value, fieldName) {
-      console.log("value: ", value, fieldName);
-      this[fieldName] = value;
-    },
-    createNewCategory() {
+    createCategory() {
       console.log("newCategory: ",
         this.newCategoryName,
         this.newCategoryParent,
@@ -94,6 +120,37 @@ export default {
     },
     closePopup() {
       store.dispatch("toggleNewCategoryPopup");
+    },
+    hideOptions(optionsName) {
+      this.$data[optionsName].isVisible = false;
+    },
+    chooseOption(option, optionsName) {
+      this.newCategoryParent = option.title;
+      this.hideOptions(optionsName);
+    },
+    onInputChanged(value, fieldName) {
+      this[fieldName] = value;
+    },
+    showOptions(optionsName) {
+      this.$data[optionsName].isVisible = true;
+    },
+    onInputInputed(input) {
+      const optionsSettings = this.$data[input.name];
+      this.showOptions(input.name);
+
+      if (!input.value) {
+        optionsSettings.value = [];
+        optionsSettings.isVisible = false;
+        return;
+      }
+
+      optionsSettings.value = store.getters.getCategoryByName(input.value);
+      optionsSettings.isVisible = this.parentCategoryOptions.value.length ? true : false;
+    },
+    clickNewCategoryParent(val) {
+      const optionsSettings = this.$data[val];
+      optionsSettings.value = store.getters.getAllCategories;
+      this.showOptions(val);
     }
   }
 };
@@ -145,6 +202,35 @@ export default {
 
 .new-category-popup__input {
   margin-bottom: 16px;
+}
+
+.new-category-popup__input-container {
+  position: relative;
+}
+
+.new-category-popup__select-options {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  padding: 8px 9px;
+  border: 1px solid #D9DDE6;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.new-category-popup__select-option {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  transition: color .2s;
+}
+
+.new-category-popup__select-option:hover {
+  color: #A0A6BF;
 }
 
 .new-category-popup__buttons {
