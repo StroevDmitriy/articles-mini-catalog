@@ -37,7 +37,15 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "quotes": [1, "double"]
+      "quotes": [1, "double"],
+      "semi": [1, "always"],
+      "comma-dangle": [1, {
+        "arrays": "only-multiline",
+        "objects": "only-multiline",
+        "imports": "only-multiline",
+        "exports": "only-multiline",
+        "functions": "only-multiline"
+      }]
     }
   },
   "browserslist": [

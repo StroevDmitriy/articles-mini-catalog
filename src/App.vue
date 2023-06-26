@@ -22,7 +22,7 @@ export default {
     CategoryList,
     NewCategoryPopup,
   }
-}
+};
 </script>
 
 <style>

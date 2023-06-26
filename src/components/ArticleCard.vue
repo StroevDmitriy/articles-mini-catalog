@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     toggleLike(id, liked) {
-      store.dispatch("toggleArticleLike", { id, liked })
+      store.dispatch("toggleArticleLike", { id, liked });
     }
   }
 };
