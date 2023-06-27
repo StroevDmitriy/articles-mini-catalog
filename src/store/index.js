@@ -42,51 +42,110 @@ export default new Vuex.Store({
       {
         id: 6,
       },
+      {
+        id: 7,
+        title: "Should be seventh article",
+        imgName: "article-image",
+        description: "7 Description description description description description description description",
+        likes: 500,
+        liked: false,
+        categories: []
+      },
+      {
+        id: 8,
+        title: "Title 8",
+        imgName: "article-image",
+        description: "8 Description description description",
+        likes: 500,
+        liked: false,
+        categories: []
+      },
+      {
+        id: 9,
+        title: "Nineth title",
+        imgName: "article-image",
+        description: "9 Description ",
+        likes: 500,
+        liked: false,
+        categories: []
+      },
+      {
+        id: 10,
+        title: "Article number 10",
+        imgName: "article-image",
+        description: "10 Description description description description description",
+        likes: 500,
+        liked: false,
+        categories: []
+      },
+      {
+        id: 11,
+        title: "This is obviously 11th article",
+        imgName: "article-image",
+        description: "11 Description description ",
+        likes: 500,
+        liked: false,
+        categories: []
+      },
     ],
     categories: [
       {
-        categoryId: 0,
-        title: "Название категории1",
-        childCategories: [],
-        articlesID: [0,1,2,4,5,6],
+        id: 0,
+        title: "Название категории",
+        articlesID: [0,1,2,
+          4,5,6
+        ],
       },
       {
-        categoryId: 1,
-        title: "First category",
-        childCategories: [],
-        articlesID: [],
+        id: 1,
+        title: "First layer child category",
+        parentCategory: 0,
+        articlesID: [1,7,8],
       },
-      {
-        categoryId: 3,
-        title: "Second category",
-        childCategories: [],
-        articlesID: [],
-      },
-      {
-        categoryId: 4,
-        title: "Second category 2",
-        childCategories: [],
-        articlesID: [],
-      }
+      // {
+      //   id: 2,
+      //   title: "Second layer child category",
+      //   parentCategory: 1,
+      //   articlesID: [1,7,8],
+      // },
+      // {
+      //   id: 22,
+      //   title: "Second layer child category 2",
+      //   parentCategory: 1,
+      //   articlesID: [8,9,10,11],
+      // },
+      // {
+      //   id: 3,
+      //   title: "Second category",
+      //   articlesID: [8,9],
+      // },
+      // {
+      //   id: 4,
+      //   title: "Second category 2",
+      //   articlesID: [10,11],
+      // }
     ],
     isNewCategoryPopupVisible: false,
   },
   getters: {
-    articles: state => {
-      return state.articles;
-    },
     isNewCategoryPopupVisible: state => {
       return state.isNewCategoryPopupVisible;
     },
     getAllCategories: state => {
       return state.categories;
     },
-    getCategoryByName: state => value => {
+    getCategoryByName: state => categoryName => {
       return state.categories.filter(category => {
         if (!category.title) return false;
-        return category.title.toLowerCase().includes(value.toLowerCase());
+        return category.title.toLowerCase().includes(categoryName.toLowerCase());
       });
-    }
+    },
+    getArticlesByID: state => articlesID => {
+      return state.articles.filter(article => articlesID.includes(article.id));
+    },
+    getChildCategories: state => parentCategoryID => {
+      return state.categories.filter(category =>  category.parentCategory === parentCategoryID);
+    },
   },
   mutations: {
     toggleArticleLike: (state, payload) => {
