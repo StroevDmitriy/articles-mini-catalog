@@ -11,7 +11,7 @@
 import CustomInput from "./UI/CustomInput.vue";
 
 export default {
-  name: "article-search-line",
+  name: "ArticleSearchLine",
   components: {
     CustomInput
   },

@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "custom-input",
+  name: "CustomInput",
   components: {},
   props: {
     placeholder: {

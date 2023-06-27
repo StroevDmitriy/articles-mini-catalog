@@ -12,7 +12,7 @@ import CustomButton from "./UI/CustomButton.vue";
 import store from "@/store";
 
 export default {
-  name: "create-category-button",
+  name: "CreateCategoryButton",
   components: {
     CustomButton,
   },

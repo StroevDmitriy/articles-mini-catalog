@@ -30,7 +30,7 @@ import CategoryContent from "./CategoryContent.vue";
 import CreateCategoryButton from "./CreateCategoryButton.vue";
 
 export default {
-  name: "articles-list",
+  name: "ArticlesList",
   components: {
     CreateCategoryButton,
     CategoryContent,

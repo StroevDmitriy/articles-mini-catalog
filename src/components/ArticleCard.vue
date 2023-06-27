@@ -43,7 +43,7 @@
 import store from "@/store";
 
 export default {
-  name: "article-card",
+  name: "ArticleCard",
   components: {},
   props: {
     previewName: {

@@ -12,7 +12,7 @@ import CreateCategoryButton from "./CreateCategoryButton.vue";
 import ArticleSearchLine from "./ArticleSearchLine.vue";
 
 export default {
-  name: "tool-bar",
+  name: "ToolBar",
   components: {
     CreateCategoryButton,
     ArticleSearchLine
