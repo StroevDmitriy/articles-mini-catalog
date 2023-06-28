@@ -8,8 +8,8 @@
     ]"
   >
     <div class="category__header">
-      <h2 v-if="isParentCategory">{{ title }} <span>({{ articlesID.length }})</span></h2>
-      <h3 v-else>{{ title }} <span>({{ articlesID.length }})</span></h3>
+      <h2 v-if="isParentCategory">{{ title }} <span>({{ articlesCount }})</span></h2>
+      <h3 v-else>{{ title }} <span>({{ articlesCount }})</span></h3>
       <div class="category__buttons">
         <button
           :class="[
@@ -132,6 +132,9 @@ export default {
     childCategoriesData() {
       const childCategories = store.getters.getChildCategories(this.id);
       return childCategories.length ? childCategories : [];
+    },
+    articlesCount() {
+      return store.getters.getArticlesCount(this.id);
     }
   },
   methods: {

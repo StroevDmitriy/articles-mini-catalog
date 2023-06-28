@@ -188,6 +188,16 @@ export default new Vuex.Store({
     },
     getCategoryToRemoveID: state => state.categoryIDToRemove,
     getCategoryToEditID: state => state.categoryIDToEdit,
+    getArticlesCount: (state, getters) => categoryID => {
+      const childCategories = getters.getChildCategories(categoryID);
+      if (childCategories.length) {
+        return childCategories.reduce(
+          (acc, category) =>  acc + getters.getArticlesCount(category.id),
+          getters.getCategoryByID(categoryID).articlesID.length
+        );
+      }
+      return getters.getCategoryByID(categoryID).articlesID.length;
+    }
   },
   mutations: {
     toggleArticleLike: (state, payload) => {
