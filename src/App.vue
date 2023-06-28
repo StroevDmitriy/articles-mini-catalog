@@ -7,6 +7,7 @@
       <CategoryList />
     </main>
     <NewCategoryPopup />
+    <RemoveCategoryPopup />
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
 import NewCategoryPopup from "./components/popUps/NewCategoryPopup.vue";
+import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
 
 export default {
   name: "App",
@@ -21,6 +23,7 @@ export default {
     ToolBar,
     CategoryList,
     NewCategoryPopup,
+    RemoveCategoryPopup
   }
 };
 </script>
@@ -42,8 +45,6 @@ export default {
 }
 
 .articles-list p {
-  font-size: 14px;
-  line-height: 22px;
   margin-bottom: 16px;
 }
 </style>

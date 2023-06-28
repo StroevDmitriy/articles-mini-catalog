@@ -49,9 +49,11 @@ export default {
 
 <style scoped>
 .custom-button{
+  display: flex;
+  align-items: center;
   border: none;
   border-radius: 3px;
-  padding: 10px 21px 12px 16px;
+  padding: 10px 21px 10px 16px;
   font-size: 16px;
   line-height: 1.5;
   transition: background-color .3s;

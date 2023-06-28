@@ -1,17 +1,16 @@
 <template>
   <div
     :class="[
-      'new-category-popup-container',
-      { 'new-category-popup-container__shown': isNewCategoryPopupVisible }
+      'popup-container',
+      { 'popup-container__shown': isNewCategoryPopupVisible }
     ]"
   >
     <div
-      class="new-category-popup-container__overlay"
+      class="popup-container__overlay"
       @click="closePopup"
     ></div>
     <section
-      class="new-category-popup-container__popup new-category-popup"
-       
+      class="popup-container__popup new-category-popup"
     >
       <form action="">
         <h3>Новая категория</h3>
@@ -222,35 +221,9 @@ export default {
 
 </script>
 <style scoped>
-.new-category-popup-container {
-  display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.new-category-popup-container__shown {
-  display: block;
-}
-
-.new-category-popup-container__overlay {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(10, 14, 32, 0.4);
-}
-
-.new-category-popup-container__popup {
-  position: fixed;
+.new-category-popup {
   width: 826px;
-  top: 40px;
-  left: 50%;
-  box-sizing: border-box;
   padding: 32px 32px 24px;
-  border-radius: 10px;
-  background-color: #fff;
-  transform: translateX(-50%);
 }
 
 .new-category-popup-container__popup h3 {

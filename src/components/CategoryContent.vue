@@ -48,6 +48,7 @@
             <button
               type="button"
               class="category__button category__remove"
+              @click="openRemoveCategoryPopup"
             >Удалить</button>
           </div>
         </div>
@@ -98,7 +99,7 @@ export default {
   },
   props: {
     id: {
-      type: Number,
+      type: String,
     },
     title: {
       type: String,
@@ -141,6 +142,9 @@ export default {
     },
     onClickOutside() {
       this.isCategoryMenuShown = false;
+    },
+    openRemoveCategoryPopup() {
+      store.dispatch("openRemoveCategoryPopup", this.id);
     }
   },
 };

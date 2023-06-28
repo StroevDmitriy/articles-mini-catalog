@@ -9,16 +9,16 @@ export default new Vuex.Store({
     articles: [
       {
         id: "0",
-        title: "What da fuckkk",
+        title: "New title",
         imgName: "article-image",
-        description: "Some damn long long long and strange fucking description. I need to type something else here to make it longer. Hope, it will be enough to check layout for issues",
+        description: "Description description description description description description description description description description description description description description description description description description description description description description description",
         likes: 400,
         liked: false,
         categories: []
       },
       {
         id: "1",
-        title: "Another one title",
+        title: "New title 1",
         imgName: "article-image",
         description: "Description description description description description description description description description description description description description description description description description description description description description description description",
         likes: 10,
@@ -27,7 +27,7 @@ export default new Vuex.Store({
       },
       {
         id: "2",
-        title: "Yet, another one title 2",
+        title: "New title 2",
         imgName: "article-image",
         description: "Идейные соображения высшего порядка, а также сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий. Равным образом начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки направлений прогрессивного развития.",
         likes: 15,
@@ -36,7 +36,7 @@ export default new Vuex.Store({
       },
       {
         id: "3",
-        title: "Custom title",
+        title: "New title 3",
         imgName: "article-image",
         description: "Custom dscription",
         likes: 30,
@@ -45,7 +45,7 @@ export default new Vuex.Store({
       },
       {
         id: "4",
-        title: "Custom title 2",
+        title: "New title 4",
         imgName: "article-image",
         description: "2 Custom dscription Custom dscription Custom dscription Custom dscription Custom dscription Custom dscription",
         likes: 4,
@@ -54,7 +54,7 @@ export default new Vuex.Store({
       },
       {
         id: "5",
-        title: "Custom title 3",
+        title: "New title 5",
         imgName: "article-image",
         description: "3 Custom dscription Custom dscription Custom dscription Custom dscription Custom dscription Custom dscription",
         likes: 355,
@@ -63,7 +63,7 @@ export default new Vuex.Store({
       },
       {
         id: "6",
-        title: "Custom title 4",
+        title: "New title 6",
         imgName: "article-image",
         description: " 4 Custom dscription Custom dscription Custom dscription Custom dscription Custom dscription Custom dscription",
         likes: 35,
@@ -72,7 +72,7 @@ export default new Vuex.Store({
       },
       {
         id: "7",
-        title: "Should be seventh article",
+        title: "New title 7",
         imgName: "article-image",
         description: "7 Description description description description description description description",
         likes: 70,
@@ -90,7 +90,7 @@ export default new Vuex.Store({
       },
       {
         id: "9",
-        title: "Nineth title",
+        title: "Title 9",
         imgName: "article-image",
         description: "9 Description ",
         likes: 90,
@@ -99,7 +99,7 @@ export default new Vuex.Store({
       },
       {
         id: "10",
-        title: "Article number 10",
+        title: "Title 10",
         imgName: "article-image",
         description: "10 Description description description description description",
         likes: 100,
@@ -107,7 +107,7 @@ export default new Vuex.Store({
       },
       {
         id: "11",
-        title: "This is obviously 11th article",
+        title: "Title 11",
         imgName: "article-image",
         description: "11 Description description ",
         likes: 110,
@@ -119,19 +119,17 @@ export default new Vuex.Store({
       {
         id: "0",
         title: "Название категории",
-        articlesID: ["0","1","2",
-          "4","5","6'"
-        ],
+        articlesID: ["0","1","2","4","5","6"],
       },
       {
         id: "1",
-        title: "First layer child category",
+        title: "First layer child category 1",
         parentCategory: "0",
         articlesID: ["1","7","8"],
       },
       {
-        id: "2",
-        title: "Second layer child category",
+        id: "21",
+        title: "Second layer child category 1",
         parentCategory: "1",
         articlesID: ["1","7","8"],
       },
@@ -143,27 +141,24 @@ export default new Vuex.Store({
       },
       {
         id: "3",
-        title: "Second category",
+        title: "Category 3",
         articlesID: ["8","9"],
       },
       {
         id: "4",
-        title: "Second category 2",
+        title: "Category 4",
         articlesID: ["10","11"],
       }
     ],
     isNewCategoryPopupVisible: false,
+    isRemoveCategoryPopupVisible: false,
+    categoryIDToRemove: null,
   },
   getters: {
-    isNewCategoryPopupVisible: state => {
-      return state.isNewCategoryPopupVisible;
-    },
-    getAllCategories: state => {
-      return state.categories;
-    },
-    getAllArticles: state => {
-      return state.articles;
-    },
+    isNewCategoryPopupVisible: state => state.isNewCategoryPopupVisible,
+    isRemoveCategoryPopupVisible: state => state.isRemoveCategoryPopupVisible,
+    getAllCategories: state => state.categories,
+    getAllArticles: state => state.articles,
     getCategoryByName: state => categoryName => {
       return state.categories.filter(category => {
         if (!category.title) return false;
@@ -174,7 +169,7 @@ export default new Vuex.Store({
       return state.articles.filter(article => articlesID.includes(article.id));
     },
     getChildCategories: state => parentCategoryID => {
-      return state.categories.filter(category =>  category.parentCategory === parentCategoryID);
+      return state.categories.filter(category => category.parentCategory === parentCategoryID);
     },
     getRestArticles: state => articlesID => {
       return state.articles.
@@ -185,7 +180,8 @@ export default new Vuex.Store({
               title: article.title,
             };
           });
-    }
+    },
+    getCategoryToRemoveID: state => state.categoryIDToRemove,
   },
   mutations: {
     toggleArticleLike: (state, payload) => {
@@ -206,16 +202,26 @@ export default new Vuex.Store({
         Vue.set(article, "liked", true);
       }
     },
-    toggleNewCategoryPopup: (state) => {
+    toggleNewCategoryPopup: state => {
       state.isNewCategoryPopupVisible = !state.isNewCategoryPopupVisible;
     },
-    createCategory: (state, payload) => {
+    toggleRemoveCategoryPopup: state => {
+      state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
+    },
+    createCategory: (state, newArticle) => {
       state.categories.push({
         id: uuidv4(),
-        title: payload.name,
-        parentCategory: payload.parentCategory,
-        articlesID: payload.articles
+        title: newArticle.name,
+        parentCategory: newArticle.parentCategory,
+        articlesID: newArticle.articles
       });
+    },
+    setCategoryIDToRemove: (state, categoryID) => {
+      state.categoryIDToRemove = categoryID;
+    },
+    removeCategory: (state, categoryId) => {
+      const categoryToRemoveIndex = state.categories.findIndex(category => category.id === categoryId);
+      state.categories.splice(categoryToRemoveIndex, 1);
     }
   },
   actions: {
@@ -225,10 +231,30 @@ export default new Vuex.Store({
     toggleNewCategoryPopup({ commit }) {
       commit("toggleNewCategoryPopup");
     },
-    createCategory({ commit }, payload) {
-      commit("createCategory", payload);
+    createCategory({ commit }, newArticle) {
+      commit("createCategory", newArticle);
       commit("toggleNewCategoryPopup");
     },
+    openRemoveCategoryPopup({ commit }, categoryID) {
+      commit("setCategoryIDToRemove", categoryID);
+      commit("toggleRemoveCategoryPopup");
+    },
+    closeRemoveCategoryPopup({ commit }) {
+      commit("toggleRemoveCategoryPopup");
+    },
+    clickRemoveCategory({ dispatch, commit }, categoryID) {
+      dispatch("removeCategory", categoryID);
+      commit("toggleRemoveCategoryPopup");
+    },
+    removeCategory({ dispatch, commit, state }, categoryID) {
+      const childCategoriesIDToRemove = state.categories.filter(category => category.parentCategory === categoryID);
+      if (childCategoriesIDToRemove.length) {
+        childCategoriesIDToRemove.forEach(category => {
+          dispatch("removeCategory", category.id);
+        });
+      }
+      commit("removeCategory", categoryID);
+    }
   },
   modules: {},
 });

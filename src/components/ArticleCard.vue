@@ -118,9 +118,6 @@ export default {
 }
 
 .article-card__title {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
   margin-bottom: 8px;
 }
 
@@ -129,7 +126,6 @@ export default {
   overflow: hidden;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
-  color: #6A6E7E;  
-  line-height: 22px;
+  color: #6A6E7E;
 }
 </style>
