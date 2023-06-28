@@ -1,18 +1,23 @@
 <template>
   <div class="container">
-    <header>
-      <ToolBar />
-    </header>
-    <main>
-      <CategoryList />
-    </main>
-    <NewAndEditCategoryPopup
-      :categoryToEditID="categoryToEditID"
-    />
-    <RemoveCategoryPopup />
-    <EditArticlePopup
-      :articleToEditID="articleToEditID"
-    />
+    <div class="loader" v-if="loading">
+      <img src="./assets/svg/loader.svg" alt="Loader">
+    </div>
+    <div class="content" v-else>
+      <header>
+        <ToolBar />
+      </header>
+      <main>
+        <CategoryList />
+      </main>
+      <NewAndEditCategoryPopup
+        :categoryToEditID="categoryToEditID"
+      />
+      <RemoveCategoryPopup />
+      <EditArticlePopup
+        :articleToEditID="articleToEditID"
+      />
+    </div>
   </div>
 </template>
 
@@ -40,6 +45,16 @@ export default {
     articleToEditID() {
       return store.getters.getArticleToEditID;
     }
+  },
+  data() {
+    return {
+      loading: true
+    };
+  },
+  created() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
   }
 };
 </script>
@@ -62,5 +77,27 @@ export default {
 
 .articles-list p {
   margin-bottom: 16px;
+}
+
+.loader {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 100;
+}
+
+@keyframes roll {
+  from { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader {
+  animation: roll 1s infinite linear;
 }
 </style>
