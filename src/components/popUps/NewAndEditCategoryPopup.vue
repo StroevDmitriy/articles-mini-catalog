@@ -131,7 +131,7 @@ import CustomInput from "../UI/CustomInput.vue";
 import CustomButton from "../UI/CustomButton.vue";
 
 export default {
-  name: "CategoryPopup",
+  name: "NewAndEditCategoryPopup",
   components: {
     CustomInput,
     CustomButton

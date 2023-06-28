@@ -6,7 +6,7 @@
     <main>
       <CategoryList />
     </main>
-    <CategoryPopup
+    <NewAndEditCategoryPopup
       :categoryIDToEdit="categoryIDToEdit"
     />
     <RemoveCategoryPopup />
@@ -17,7 +17,7 @@
 import store from "./store";
 import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
-import CategoryPopup from "./components/popUps/CategoryPopup.vue";
+import NewAndEditCategoryPopup from "./components/popUps/NewAndEditCategoryPopup.vue";
 import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
 
 export default {
@@ -25,7 +25,7 @@ export default {
   components: {
     ToolBar,
     CategoryList,
-    CategoryPopup,
+    NewAndEditCategoryPopup,
     RemoveCategoryPopup
   },
   computed: {
