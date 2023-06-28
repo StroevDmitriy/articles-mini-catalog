@@ -80,7 +80,8 @@ export default {
 </script>
 <style scoped>
 .article-card {
-  width: 291px;
+  width: 23.5%;
+  min-width: 280px;
   box-sizing: border-box;
   height: 295px;
   border: 1px solid #BFC3D5;
