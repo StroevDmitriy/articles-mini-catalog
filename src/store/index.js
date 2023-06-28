@@ -146,16 +146,17 @@ export default new Vuex.Store({
       },
       {
         id: "4",
+        parentCategory: null,
         title: "Category 4",
         articlesID: ["10","11"],
       }
     ],
-    isNewCategoryPopupVisible: false,
+    isCategoryPopupVisible: false,
     isRemoveCategoryPopupVisible: false,
     categoryIDToRemove: null,
   },
   getters: {
-    isNewCategoryPopupVisible: state => state.isNewCategoryPopupVisible,
+    isCategoryPopupVisible: state => state.isCategoryPopupVisible,
     isRemoveCategoryPopupVisible: state => state.isRemoveCategoryPopupVisible,
     getAllCategories: state => state.categories,
     getAllArticles: state => state.articles,
@@ -202,8 +203,8 @@ export default new Vuex.Store({
         Vue.set(article, "liked", true);
       }
     },
-    toggleNewCategoryPopup: state => {
-      state.isNewCategoryPopupVisible = !state.isNewCategoryPopupVisible;
+    toggleCategoryPopup: state => {
+      state.isCategoryPopupVisible = !state.isCategoryPopupVisible;
     },
     toggleRemoveCategoryPopup: state => {
       state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
@@ -228,12 +229,12 @@ export default new Vuex.Store({
     toggleArticleLike({ commit }, payload) {
       commit("toggleArticleLike", payload);
     },
-    toggleNewCategoryPopup({ commit }) {
-      commit("toggleNewCategoryPopup");
+    toggleCategoryPopup({ commit }) {
+      commit("toggleCategoryPopup");
     },
     createCategory({ commit }, newArticle) {
       commit("createCategory", newArticle);
-      commit("toggleNewCategoryPopup");
+      commit("toggleCategoryPopup");
     },
     openRemoveCategoryPopup({ commit }, categoryID) {
       commit("setCategoryIDToRemove", categoryID);

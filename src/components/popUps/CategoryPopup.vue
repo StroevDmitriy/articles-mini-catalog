@@ -2,7 +2,7 @@
   <div
     :class="[
       'popup-container',
-      { 'popup-container__shown': isNewCategoryPopupVisible }
+      { 'popup-container__shown': isCategoryPopupVisible }
     ]"
   >
     <div
@@ -10,43 +10,43 @@
       @click="closePopup"
     ></div>
     <section
-      class="popup-container__popup new-category-popup"
+      class="popup-container__popup category-popup"
     >
       <form action="">
         <h3>Новая категория</h3>
-        <fieldset class="new-category-popup__fields">
+        <fieldset class="category-popup__fields">
           <CustomInput
-            class="new-category-popup__input"
+            class="category-popup__input"
             type="input"
             placeholder="Название"
-            :value="newCategoryName"
-            @change="onInputChanged($event.value, 'newCategoryName')"
+            :value="categoryName"
+            @change="onInputChanged($event.value, 'categoryName')"
           />
-          <div class="new-category-popup__field-container">
-            <div class="new-category-popup__input-container">
+          <div class="category-popup__field-container">
+            <div class="category-popup__input-container">
               <CustomInput
-                class="new-category-popup__input"
+                class="category-popup__input"
                 fieldName="parentCategoryOptions"
                 type="select"
                 placeholder="Родительская категория (необязательно)"
-                :value="newCategoryParentTitle"
+                :value="categoryParentTitle"
                 noType
                 @input="onInputInputed"
                 @click="openParentCategoryOptions($event)"
                 @blur="hideOptions('parentCategoryOptions')"
               />
               <div
-                class="new-category-popup__select-options"
+                class="category-popup__select-options"
                 v-show="parentCategoryOptions.isVisible"
               >
                 <button
-                  class="new-category-popup__select-option"
+                  class="category-popup__select-option"
                   type="button"
                   @mousedown="chooseParentCategoryOption('')"
                 ><span>(Нет родительской категории)</span></button>
                 <button
                   v-for="option in parentCategoryOptions.value"
-                  class="new-category-popup__select-option"
+                  class="category-popup__select-option"
                   type="button"
                   :key="option.categoryId"
                   @mousedown="chooseParentCategoryOption(option)"
@@ -56,26 +56,26 @@
               </div>
             </div>
           </div>
-          <div class="new-category-popup__field-container">
-            <div class="new-category-popup__input-container">
+          <div class="category-popup__field-container">
+            <div class="category-popup__input-container">
               <CustomInput
                 type="select"
                 placeholder="Вложенные статьи"
-                class="new-category-popup__input"
+                class="category-popup__input"
                 fieldName="innerArticlesOptions"
                 noType
                 @click="openInnerArticlesOptions($event)"
-                @change="onInputChanged($event.value, 'newCategoryArticles')"
+                @change="onInputChanged($event.value, 'categoryArticles')"
                 @blur="hideOptions('innerArticlesOptions')"
               />
               <div
-                class="new-category-popup__select-options"
+                class="category-popup__select-options"
                 v-show="innerArticlesOptions.isVisible"
               >
                 <button
                   v-for="option in innerArticlesOptions.value"
                   :key="option.id"
-                  class="new-category-popup__select-option"
+                  class="category-popup__select-option"
                   type="button"
                   @mousedown="chooseArticlesOption({
                     id: option.id,
@@ -86,14 +86,14 @@
                 </button>
               </div>
             </div>
-            <div class="new-category-popup__selected-articles">
+            <div class="category-popup__selected-articles">
               <div
                 v-for="article in innerArticlesSelected"
                 :key="article.id"
-                class="new-category-popup__selected-inner-article"
+                class="category-popup__selected-inner-article"
               >
                 <button
-                  class="new-category-popup__remove-article-button"
+                  class="category-popup__remove-article-button"
                   type="button"
                   @click="removeSelectedArticle(article.id)"
                 ></button>
@@ -103,18 +103,18 @@
           </div>
 
         </fieldset>
-        <fieldset class="new-category-popup__buttons">
+        <fieldset class="category-popup__buttons">
           <CustomButton
             buttonLabel="Сохранить"
             buttonType="action"
-            class="new-category-popup__button new-category-popup__save-button"
+            class="category-popup__button category-popup__save-button"
             :fullWidth="true"
             @click="createCategory"
           />
           <CustomButton
             buttonLabel="Отмена"
             buttonType="passive"
-            class="new-category-popup__button new-category-popup__cancel-button"
+            class="category-popup__button category-popup__cancel-button"
             :fullWidth="true"
             @click="closePopup"
           />
@@ -130,16 +130,16 @@ import CustomButton from "../UI/CustomButton.vue";
 import store from "@/store";
 
 export default {
-  name: "NewCategoryPopup",
+  name: "CategoryPopup",
   components: {
     CustomInput,
     CustomButton
   },
   data() {
     return {
-      newCategoryName: "",
-      newCategoryParentId: "",
-      newCategoryParentTitle: "",
+      categoryName: "",
+      categoryParentId: "",
+      categoryParentTitle: "",
       innerArticlesSelected: [],
       parentCategoryOptions: {
         isVisible: false,
@@ -152,32 +152,32 @@ export default {
     };
   },
   computed: {
-    isNewCategoryPopupVisible() {
-      return store.getters.isNewCategoryPopupVisible;
+    isCategoryPopupVisible() {
+      return store.getters.isCategoryPopupVisible;
     },
   },
   methods: {
     createCategory() {
       store.dispatch("createCategory", {
-        name: this.newCategoryName,
-        parentCategory: this.newCategoryParentId,
+        name: this.categoryName,
+        parentCategory: this.categoryParentId || null,
         articles: this.innerArticlesSelected.map(article => article.id),
       });
 
-      this.newCategoryName = "";
-      this.newCategoryParentId = "";
-      this.newCategoryParentTitle = "";
+      this.categoryName = "";
+      this.categoryParentId = "";
+      this.categoryParentTitle = "";
       this.innerArticlesSelected = [];
     },
     closePopup() {
-      store.dispatch("toggleNewCategoryPopup");
+      store.dispatch("toggleCategoryPopup");
     },
     hideOptions(optionsName) {
       this.$data[optionsName].isVisible = false;
     },
     chooseParentCategoryOption(option) {
-      this.newCategoryParentTitle = option.title;
-      this.newCategoryParentId = option.id;
+      this.categoryParentTitle = option.title;
+      this.categoryParentId = option.id;
       this.hideOptions("parentCategoryOptions");
     },
     chooseArticlesOption(article) {
@@ -223,32 +223,32 @@ export default {
 
 </script>
 <style scoped>
-.new-category-popup {
+.category-popup {
   width: 826px;
   padding: 32px 32px 24px;
 }
 
-.new-category-popup-container__popup h3 {
+.category-popup-container__popup h3 {
   color: #000;
 }
 
-.new-category-popup h3 {
+.category-popup h3 {
   margin-bottom: 16px;
 }
 
-.new-category-popup__fields {
+.category-popup__fields {
   min-height: 529px;
 }
 
-.new-category-popup__input {
+.category-popup__input {
   margin-bottom: 16px;
 }
 
-.new-category-popup__input-container {
+.category-popup__input-container {
   position: relative;
 }
 
-.new-category-popup__select-options {
+.category-popup__select-options {
   position: absolute;
   box-sizing: border-box;
   width: 100%;
@@ -262,7 +262,7 @@ export default {
   z-index: 1000;
 }
 
-.new-category-popup__select-option {
+.category-popup__select-option {
   width: 100%;
   padding: 6px 8px;
   font-size: 14px;
@@ -271,27 +271,27 @@ export default {
   transition: color .2s;
 }
 
-.new-category-popup__select-option span {
+.category-popup__select-option span {
   opacity: .4;
 }
 
-.new-category-popup__select-option:hover {
+.category-popup__select-option:hover {
   color: #A0A6BF;
 }
 
-.new-category-popup__selected-articles {
+.category-popup__selected-articles {
   display: flex;
   flex-wrap: wrap;
 }
 
-.new-category-popup__selected-inner-article {
+.category-popup__selected-inner-article {
   display: flex;
   align-items: center;
   margin-right: 16px;
   margin-bottom: 16px;
 }
 
-.new-category-popup__remove-article-button {
+.category-popup__remove-article-button {
   width: 24px;
   height: 24px;
   border-radius: 3px;
@@ -300,19 +300,19 @@ export default {
   background-image: url(../../assets/svg/delete.svg);
 }
 
-.new-category-popup__buttons {
+.category-popup__buttons {
   display: flex;
   justify-content: space-between;
   padding-top: 16px;
   border-top: 1px solid #BFC3D5;
 }
 
-.new-category-popup__button {
+.category-popup__button {
   justify-content: center;
   font-weight: 500;
 }
 
-.new-category-popup__save-button {
+.category-popup__save-button {
   margin-right: 24px;
 }
 </style>

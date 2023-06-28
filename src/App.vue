@@ -6,7 +6,7 @@
     <main>
       <CategoryList />
     </main>
-    <NewCategoryPopup />
+    <CategoryPopup />
     <RemoveCategoryPopup />
   </div>
 </template>
@@ -14,7 +14,7 @@
 <script>
 import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
-import NewCategoryPopup from "./components/popUps/NewCategoryPopup.vue";
+import CategoryPopup from "./components/popUps/CategoryPopup.vue";
 import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
 
 export default {
@@ -22,7 +22,7 @@ export default {
   components: {
     ToolBar,
     CategoryList,
-    NewCategoryPopup,
+    CategoryPopup,
     RemoveCategoryPopup
   }
 };
