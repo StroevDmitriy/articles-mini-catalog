@@ -13,7 +13,8 @@
       class="popup-container__popup category-popup"
     >
       <form action="">
-        <h3>Новая категория</h3>
+        <h3 v-if="categoryIDToEdit">Редактирование категории</h3>
+        <h3 v-else>Новая категория</h3>
         <fieldset class="category-popup__fields">
           <CustomInput
             class="category-popup__input"
@@ -109,7 +110,7 @@
             buttonType="action"
             class="category-popup__button category-popup__save-button"
             :fullWidth="true"
-            @click="createCategory"
+            @click="saveCategory"
           />
           <CustomButton
             buttonLabel="Отмена"
@@ -125,15 +126,21 @@
 </template>
 
 <script>
+import store from "@/store";
 import CustomInput from "../UI/CustomInput.vue";
 import CustomButton from "../UI/CustomButton.vue";
-import store from "@/store";
 
 export default {
   name: "CategoryPopup",
   components: {
     CustomInput,
     CustomButton
+  },
+  props: {
+    categoryIDToEdit: {
+      type: String || null,
+      default: null,
+    }
   },
   data() {
     return {
@@ -157,13 +164,30 @@ export default {
     },
   },
   methods: {
+    saveCategory() {
+      if (this.categoryIDToEdit) {
+        this.updateCategory();
+      } else {
+        this.createCategory();
+      }
+    },
     createCategory() {
       store.dispatch("createCategory", {
         name: this.categoryName,
         parentCategory: this.categoryParentId || null,
         articles: this.innerArticlesSelected.map(article => article.id),
       });
-
+      this.resetFields();
+    },
+    updateCategory() {
+      store.dispatch("updateCategory", {
+        id: this.categoryIDToEdit,
+        title: this.categoryName,
+        parentCategory: this.categoryParentId || null,
+        articlesID: this.innerArticlesSelected.map(article => article.id),
+      });
+    },
+    resetFields() {
       this.categoryName = "";
       this.categoryParentId = "";
       this.categoryParentTitle = "";
@@ -217,6 +241,28 @@ export default {
     removeSelectedArticle(articleID) {
       const articleIndex = this.innerArticlesSelected.findIndex(article => article.id == articleID);
       this.innerArticlesSelected.splice(articleIndex, 1);
+    }
+  },
+  watch: {
+    categoryIDToEdit(categoryIDToEdit) {
+      if (categoryIDToEdit) {
+        let {
+          title,
+          parentCategory,
+          articlesID
+        } = store.getters.getCategoryByID(this.categoryIDToEdit);
+        this.categoryName = title;
+        this.categoryParentId = parentCategory;
+        this.categoryParentTitle = store.getters.getCategoryByID(parentCategory)?.title;
+        this.innerArticlesSelected = store.getters.getArticlesByID(articlesID).map(article => {
+          return {
+            id: article.id,
+            title: article.title
+          };
+        });
+      } else {
+        this.resetFields();
+      }
     }
   }
 };

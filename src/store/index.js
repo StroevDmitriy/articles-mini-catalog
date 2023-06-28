@@ -119,6 +119,7 @@ export default new Vuex.Store({
       {
         id: "0",
         title: "Название категории",
+        parentCategory: null,
         articlesID: ["0","1","2","4","5","6"],
       },
       {
@@ -142,18 +143,20 @@ export default new Vuex.Store({
       {
         id: "3",
         title: "Category 3",
+        parentCategory: null,
         articlesID: ["8","9"],
       },
       {
         id: "4",
-        parentCategory: null,
         title: "Category 4",
+        parentCategory: null,
         articlesID: ["10","11"],
       }
     ],
     isCategoryPopupVisible: false,
     isRemoveCategoryPopupVisible: false,
     categoryIDToRemove: null,
+    categoryIDToEdit: null,
   },
   getters: {
     isCategoryPopupVisible: state => state.isCategoryPopupVisible,
@@ -166,9 +169,10 @@ export default new Vuex.Store({
         return category.title.toLowerCase().includes(categoryName.toLowerCase());
       });
     },
-    getArticlesByID: state => articlesID => {
-      return state.articles.filter(article => articlesID.includes(article.id));
+    getCategoryByID: state => categoryID => {
+      return state.categories.find(category => category.id === categoryID);
     },
+    getArticlesByID: state => articlesID => state.articles.filter(article => articlesID.includes(article.id)),
     getChildCategories: state => parentCategoryID => {
       return state.categories.filter(category => category.parentCategory === parentCategoryID);
     },
@@ -183,6 +187,7 @@ export default new Vuex.Store({
           });
     },
     getCategoryToRemoveID: state => state.categoryIDToRemove,
+    getCategoryToEditID: state => state.categoryIDToEdit,
   },
   mutations: {
     toggleArticleLike: (state, payload) => {
@@ -209,12 +214,12 @@ export default new Vuex.Store({
     toggleRemoveCategoryPopup: state => {
       state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
     },
-    createCategory: (state, newArticle) => {
+    createCategory: (state, newCategory) => {
       state.categories.push({
         id: uuidv4(),
-        title: newArticle.name,
-        parentCategory: newArticle.parentCategory,
-        articlesID: newArticle.articles
+        title: newCategory.name,
+        parentCategory: newCategory.parentCategory,
+        articlesID: newCategory.articles
       });
     },
     setCategoryIDToRemove: (state, categoryID) => {
@@ -223,17 +228,33 @@ export default new Vuex.Store({
     removeCategory: (state, categoryId) => {
       const categoryToRemoveIndex = state.categories.findIndex(category => category.id === categoryId);
       state.categories.splice(categoryToRemoveIndex, 1);
-    }
+    },
+    updateCategory: (state, updatedCategory) => {
+      const categoryToUpdateIndex = state.categories.findIndex(category => category.id === updatedCategory.id);
+      const categoryToUpdate = state.categories[categoryToUpdateIndex];
+
+      categoryToUpdate.title = updatedCategory.title;
+      categoryToUpdate.parentCategory = updatedCategory.parentCategory;
+      categoryToUpdate.articlesID = updatedCategory.articlesID;
+    },
+    updateCategoryIDToEdit: (state, categoryId) => {
+      state.categoryIDToEdit = categoryId;
+    },
   },
   actions: {
     toggleArticleLike({ commit }, payload) {
       commit("toggleArticleLike", payload);
     },
-    toggleCategoryPopup({ commit }) {
+    toggleCategoryPopup({ commit }, categoryID) {
+      commit("updateCategoryIDToEdit", categoryID);
       commit("toggleCategoryPopup");
     },
-    createCategory({ commit }, newArticle) {
-      commit("createCategory", newArticle);
+    createCategory({ commit }, newCategory) {
+      commit("createCategory", newCategory);
+      commit("toggleCategoryPopup");
+    },
+    updateCategory({ commit }, updatedCategory) {
+      commit("updateCategory", updatedCategory);
       commit("toggleCategoryPopup");
     },
     openRemoveCategoryPopup({ commit }, categoryID) {

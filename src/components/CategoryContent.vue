@@ -44,6 +44,7 @@
             <button
               type="button"
               class="category__button category__edit"
+              @click="openCategoryPopup"
             >Редактировать</button>
             <button
               type="button"
@@ -145,6 +146,9 @@ export default {
     },
     openRemoveCategoryPopup() {
       store.dispatch("openRemoveCategoryPopup", this.id);
+    },
+    openCategoryPopup() {
+      store.dispatch("toggleCategoryPopup", this.id);
     }
   },
 };

@@ -6,12 +6,15 @@
     <main>
       <CategoryList />
     </main>
-    <CategoryPopup />
+    <CategoryPopup
+      :categoryIDToEdit="categoryIDToEdit"
+    />
     <RemoveCategoryPopup />
   </div>
 </template>
 
 <script>
+import store from "./store";
 import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
 import CategoryPopup from "./components/popUps/CategoryPopup.vue";
@@ -24,6 +27,11 @@ export default {
     CategoryList,
     CategoryPopup,
     RemoveCategoryPopup
+  },
+  computed: {
+    categoryIDToEdit() {
+      return store.getters.getCategoryToEditID;
+    }
   }
 };
 </script>

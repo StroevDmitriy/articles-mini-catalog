@@ -46,7 +46,7 @@ export default {
   },
   created() {
     this.categoriesData = store.getters.getAllCategories;
-  }
+  },
 };
 </script>
 
