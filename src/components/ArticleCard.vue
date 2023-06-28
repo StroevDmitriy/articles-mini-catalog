@@ -21,6 +21,7 @@
       <button
         type="button"
         class="article-card__edit-button"
+        @click="openEditArticlePopup"
       >
         <img
           src="../assets/svg/pen.svg"
@@ -73,6 +74,9 @@ export default {
   methods: {
     toggleLike(id, liked) {
       store.dispatch("toggleArticleLike", { id, liked });
+    },
+    openEditArticlePopup() {
+      store.dispatch("toggleEditArticlePopup", this.$vnode.key);
     }
   }
 };

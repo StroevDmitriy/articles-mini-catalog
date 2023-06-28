@@ -227,7 +227,6 @@ export default {
     },
     onInputChanged(value, fieldName) {
       this[fieldName] = value;
-      console.log("1: ", this[fieldName]);
     },
     onInputInputed(input) {
       const optionsSettings = this.$data[input.name];
@@ -244,8 +243,8 @@ export default {
     },
   },
   watch: {
-    categoryToEditID(categoryToEditID) {
-      if (categoryToEditID) {
+    categoryToEditID(categoryID) {
+      if (categoryID) {
         let {
           title,
           parentCategory,
@@ -266,8 +265,4 @@ export default {
     }
   }
 };
-
 </script>
-
-<style scoped>
-</style>

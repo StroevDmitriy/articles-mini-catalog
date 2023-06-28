@@ -189,6 +189,16 @@ export default new Vuex.Store({
             };
           });
     },
+    getRestCategories: state => categoriesID => {
+      return state.categories.
+          filter(category => !categoriesID.includes(category.id))
+          .map(category => {
+            return {
+              id: category.id,
+              title: category.title,
+            };
+          });
+    },
     getCategoryToRemoveID: state => state.categoryIDToRemove,
     getCategoryToEditID: state => state.categoryToEditID,
     getArticlesCount: (state, getters) => categoryID => {
@@ -201,7 +211,17 @@ export default new Vuex.Store({
       }
       return getters.getCategoryByID(categoryID).articlesID.length;
     },
-    getArticleToEditID: state=> state.articleToEditID
+    getArticleToEditID: state => state.articleToEditID,
+    getCategoriesWithArticle: state => articleID => {
+      return state.categories
+        .filter(category => category.articlesID.includes(articleID))
+        .map(article => {
+          return {
+            id: article.id,
+            title: article.title,
+          };
+        });
+    }
   },
   mutations: {
     toggleArticleLike: (state, payload) => {
@@ -261,8 +281,19 @@ export default new Vuex.Store({
       state.articleToEditID = articleID;
     },
     updateArticle: (state, updatedArticle) => {
-      console.log("update Article. state: ", state);
-      console.log("updatedArticle: ", updatedArticle);
+      const categoriesID = updatedArticle.categoriesID;
+      const articleIDToAdd = updatedArticle.id;
+
+      state.categories
+        .forEach(category => {
+          let articlesIDSet = new Set (category.articlesID);
+          if (categoriesID.includes(category.id)) {
+            articlesIDSet.add(articleIDToAdd);
+          } else {
+            articlesIDSet.delete(articleIDToAdd);
+          }
+          category.articlesID = Array.from(articlesIDSet);
+        });
     }
   },
   actions: {
@@ -307,6 +338,7 @@ export default new Vuex.Store({
           dispatch("removeCategory", category.id);
         });
       }
+      
       commit("removeCategory", categoryID);
     }
   },

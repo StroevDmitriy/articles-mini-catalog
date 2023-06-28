@@ -10,6 +10,9 @@
       :categoryToEditID="categoryToEditID"
     />
     <RemoveCategoryPopup />
+    <EditArticlePopup
+      :articleToEditID="articleToEditID"
+    />
   </div>
 </template>
 
@@ -19,6 +22,7 @@ import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
 import NewAndEditCategoryPopup from "./components/popUps/NewAndEditCategoryPopup.vue";
 import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
+import EditArticlePopup from "./components/popUps/EditArticlePopup.vue";
 
 export default {
   name: "App",
@@ -26,11 +30,15 @@ export default {
     ToolBar,
     CategoryList,
     NewAndEditCategoryPopup,
-    RemoveCategoryPopup
+    RemoveCategoryPopup,
+    EditArticlePopup
   },
   computed: {
     categoryToEditID() {
       return store.getters.getCategoryToEditID;
+    },
+    articleToEditID() {
+      return store.getters.getArticleToEditID;
     }
   }
 };
