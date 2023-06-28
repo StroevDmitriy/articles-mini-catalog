@@ -16,18 +16,19 @@
         <h3>Новая категория</h3>
         <fieldset class="new-category-popup__fields">
           <CustomInput
+            class="new-category-popup__input"
             type="input"
             placeholder="Название"
-            class="new-category-popup__input"
+            :value="newCategoryName"
             @change="onInputChanged($event.value, 'newCategoryName')"
           />
           <div class="new-category-popup__field-container">
             <div class="new-category-popup__input-container">
               <CustomInput
-                type="select"
-                placeholder="Родительская категория (необязательно)"
                 class="new-category-popup__input"
                 fieldName="parentCategoryOptions"
+                type="select"
+                placeholder="Родительская категория (необязательно)"
                 :value="newCategoryParentTitle"
                 noType
                 @input="onInputInputed"
@@ -45,9 +46,9 @@
                 ><span>(Нет родительской категории)</span></button>
                 <button
                   v-for="option in parentCategoryOptions.value"
-                  :key="option.categoryId"
                   class="new-category-popup__select-option"
                   type="button"
+                  :key="option.categoryId"
                   @mousedown="chooseParentCategoryOption(option)"
                 >
                   {{ option.title }}
@@ -137,6 +138,7 @@ export default {
   data() {
     return {
       newCategoryName: "",
+      newCategoryParentId: "",
       newCategoryParentTitle: "",
       innerArticlesSelected: [],
       parentCategoryOptions: {
@@ -163,8 +165,8 @@ export default {
       });
 
       this.newCategoryName = "";
-      this.newCategoryParentTitle = "";
       this.newCategoryParentId = "";
+      this.newCategoryParentTitle = "";
       this.innerArticlesSelected = [];
     },
     closePopup() {
