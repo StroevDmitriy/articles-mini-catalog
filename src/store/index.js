@@ -155,12 +155,15 @@ export default new Vuex.Store({
     ],
     isCategoryPopupVisible: false,
     isRemoveCategoryPopupVisible: false,
+    isEditArticlePopupVisible: false,
     categoryIDToRemove: null,
-    categoryIDToEdit: null,
+    categoryToEditID: null,
+    articleToEditID: null,
   },
   getters: {
     isCategoryPopupVisible: state => state.isCategoryPopupVisible,
     isRemoveCategoryPopupVisible: state => state.isRemoveCategoryPopupVisible,
+    isEditArticlePopupVisible: state => state.isEditArticlePopupVisible,
     getAllCategories: state => state.categories,
     getAllArticles: state => state.articles,
     getCategoryByName: state => categoryName => {
@@ -187,7 +190,7 @@ export default new Vuex.Store({
           });
     },
     getCategoryToRemoveID: state => state.categoryIDToRemove,
-    getCategoryToEditID: state => state.categoryIDToEdit,
+    getCategoryToEditID: state => state.categoryToEditID,
     getArticlesCount: (state, getters) => categoryID => {
       const childCategories = getters.getChildCategories(categoryID);
       if (childCategories.length) {
@@ -197,7 +200,8 @@ export default new Vuex.Store({
         );
       }
       return getters.getCategoryByID(categoryID).articlesID.length;
-    }
+    },
+    getArticleToEditID: state=> state.articleToEditID
   },
   mutations: {
     toggleArticleLike: (state, payload) => {
@@ -221,8 +225,11 @@ export default new Vuex.Store({
     toggleCategoryPopup: state => {
       state.isCategoryPopupVisible = !state.isCategoryPopupVisible;
     },
+    toggleEditArticlePopup: state => {
+      state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
+    },
     toggleRemoveCategoryPopup: state => {
-      state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
+      state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
     },
     createCategory: (state, newCategory) => {
       state.categories.push({
@@ -239,6 +246,9 @@ export default new Vuex.Store({
       const categoryToRemoveIndex = state.categories.findIndex(category => category.id === categoryId);
       state.categories.splice(categoryToRemoveIndex, 1);
     },
+    updateCategoryToEditID: (state, categoryId) => {
+      state.categoryToEditID = categoryId;
+    },
     updateCategory: (state, updatedCategory) => {
       const categoryToUpdateIndex = state.categories.findIndex(category => category.id === updatedCategory.id);
       const categoryToUpdate = state.categories[categoryToUpdateIndex];
@@ -247,17 +257,25 @@ export default new Vuex.Store({
       categoryToUpdate.parentCategory = updatedCategory.parentCategory;
       categoryToUpdate.articlesID = updatedCategory.articlesID;
     },
-    updateCategoryIDToEdit: (state, categoryId) => {
-      state.categoryIDToEdit = categoryId;
+    updateArticleToEditID: (state, articleID) => {
+      state.articleToEditID = articleID;
     },
+    updateArticle: (state, updatedArticle) => {
+      console.log("update Article. state: ", state);
+      console.log("updatedArticle: ", updatedArticle);
+    }
   },
   actions: {
     toggleArticleLike({ commit }, payload) {
       commit("toggleArticleLike", payload);
     },
     toggleCategoryPopup({ commit }, categoryID) {
-      commit("updateCategoryIDToEdit", categoryID);
+      commit("updateCategoryToEditID", categoryID);
       commit("toggleCategoryPopup");
+    },
+    toggleEditArticlePopup({ commit }, articleID) {
+      commit("updateArticleToEditID", articleID);
+      commit("toggleEditArticlePopup");
     },
     createCategory({ commit }, newCategory) {
       commit("createCategory", newCategory);
@@ -266,6 +284,10 @@ export default new Vuex.Store({
     updateCategory({ commit }, updatedCategory) {
       commit("updateCategory", updatedCategory);
       commit("toggleCategoryPopup");
+    },
+    updateArticle({ commit }, updatedArticle) {
+      commit("updateArticle", updatedArticle);
+      commit("toggleEditArticlePopup");
     },
     openRemoveCategoryPopup({ commit }, categoryID) {
       commit("setCategoryIDToRemove", categoryID);

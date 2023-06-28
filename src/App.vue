@@ -7,7 +7,7 @@
       <CategoryList />
     </main>
     <NewAndEditCategoryPopup
-      :categoryIDToEdit="categoryIDToEdit"
+      :categoryToEditID="categoryToEditID"
     />
     <RemoveCategoryPopup />
   </div>
@@ -29,7 +29,7 @@ export default {
     RemoveCategoryPopup
   },
   computed: {
-    categoryIDToEdit() {
+    categoryToEditID() {
       return store.getters.getCategoryToEditID;
     }
   }
