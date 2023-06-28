@@ -59,7 +59,10 @@
       :class="[
         'category__content',
         { 'category__content_hided': !isCategoryShown }
-      ]">
+      ]"
+      ref="categoryContent"
+      :style="{ 'max-height': isCategoryShown ? contentMaxHeight + 'px' : 0}"
+    >
       <section class="category__articles-list">
         <ArticleCard 
           v-for="article in categoryArticles"
@@ -118,11 +121,16 @@ export default {
       type: Boolean,
       default: true,
     },
+    hasParent: {
+      type: Boolean,
+      default: true,
+    }
   },
   data() {
     return {
       isCategoryShown: true,
       isCategoryMenuShown: false,
+      contentMaxHeight: null,
     };
   },
   computed: {
@@ -154,21 +162,29 @@ export default {
       store.dispatch("toggleCategoryPopup", this.id);
     }
   },
+  mounted() {
+    this.contentMaxHeight = this.$refs.categoryContent.clientHeight;
+
+    if (this.hasParent) {
+      this.isCategoryShown = false;
+    }
+  }
 };
 
 </script>
 <style scoped>
+.category {
+  margin-bottom: 16px;
+}
+
 .category_child {
   margin-left: 16px;
 }
 
 .category__content {
   transform-origin: 50% 0;
-  transition: transform .2s;
-}
-
-.category__content_hided {
-  transform: scaleY(0);
+  transition: max-height .5s;
+  overflow: hidden;
 }
 
 .category__articles-list {

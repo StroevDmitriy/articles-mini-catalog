@@ -7,6 +7,7 @@
       >
         <CategoryContent
           v-if="category.parentCategory == null"
+          :hasParent="false"
           :id="category.id"
           :title="category.title"
           :articlesID="category.articlesID"
@@ -15,8 +16,8 @@
     </div>
     <section
       class="empty-list-message"
+      v-else
     >
-    <!-- v-else -->
       <strong>Пока нет статей</strong>
       <p>Создайте свою первую  категорию и добавьте в неё статьи.</p>
       <CreateCategoryButton />
