@@ -1,16 +1,16 @@
 <template>
   <div
     :class="[
-      'new-category-container',
-      { 'new-category-container__shown': isNewCategoryPopupVisible }
+      'new-category-popup-container',
+      { 'new-category-popup-container__shown': isNewCategoryPopupVisible }
     ]"
   >
     <div
-      class="new-category-container__overlay"
+      class="new-category-popup-container__overlay"
       @click="closePopup"
     ></div>
     <section
-      class="new-category-container__popup new-category-popup"
+      class="new-category-popup-container__popup new-category-popup"
        
     >
       <form action="">
@@ -222,7 +222,7 @@ export default {
 
 </script>
 <style scoped>
-.new-category-container {
+.new-category-popup-container {
   display: none;
   position: fixed;
   left: 0;
@@ -231,17 +231,17 @@ export default {
   height: 100%;
 }
 
-.new-category-container__shown {
+.new-category-popup-container__shown {
   display: block;
 }
 
-.new-category-container__overlay {
+.new-category-popup-container__overlay {
   width: 100%;
   height: 100%;
   background-color: rgba(10, 14, 32, 0.4);
 }
 
-.new-category-container__popup {
+.new-category-popup-container__popup {
   position: fixed;
   width: 826px;
   top: 40px;
@@ -253,7 +253,7 @@ export default {
   transform: translateX(-50%);
 }
 
-.new-category-container__popup h3 {
+.new-category-popup-container__popup h3 {
   color: #000;
 }
 
