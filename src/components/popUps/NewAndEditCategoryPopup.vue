@@ -32,7 +32,6 @@
                 placeholder="Родительская категория (необязательно)"
                 :value="categoryParentTitle"
                 noType
-                @input="onInputInputed"
                 @click="openParentCategoryOptions($event)"
                 @blur="hideOptions('parentCategoryOptions')"
               />
@@ -64,7 +63,7 @@
                 placeholder="Вложенные статьи"
                 class="common-popup__input select"
                 fieldName="innerArticlesOptions"
-                noType
+                @input="onInputInputed"
                 @click="openInnerArticlesOptions($event)"
                 @blur="hideOptions('innerArticlesOptions')"
               />

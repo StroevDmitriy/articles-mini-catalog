@@ -28,7 +28,7 @@
           <button
             class="category__menu-button"
             @click="toggleCategoryMenuVisibility"
-            v-click-outside="onClickOutside"
+            @blur="onClickOutside"
           >
             <img
               src="../assets/svg/menu.svg"
