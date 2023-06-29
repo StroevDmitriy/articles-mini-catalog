@@ -230,7 +230,10 @@ export default {
     onInputInputed(input) {
       const optionsSettings = this.$data[input.name];
       this.showOptions(input.name);
-      optionsSettings.value = store.getters.getArticlesByName(input.value);
+      optionsSettings.value = store.getters.getArticlesByNameExceptList({
+        value: input.value,
+        except: this.innerArticlesSelected.map(article => article.id)
+      });
       optionsSettings.isVisible = this.innerArticlesOptions.value.length ? true : false;
     },
   },
