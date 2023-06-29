@@ -1,8 +1,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { v4 as uuidv4 } from "uuid";
+import VuexPersistence from "vuex-persist";
 
 Vue.use(Vuex);
+
+const vuexPersist = new VuexPersistence({
+  key: "articles-app",
+  storage: window.localStorage,
+  reducer: (state) => (
+    {
+      articles: state.articles,
+      categories: state.categories,
+    }
+  )
+});
 
 export default new Vuex.Store({
   state: {
@@ -249,7 +261,7 @@ export default new Vuex.Store({
       state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
     },
     toggleRemoveCategoryPopup: state => {
-      state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
+      state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
     },
     createCategory: (state, newCategory) => {
       state.categories.push({
@@ -338,9 +350,10 @@ export default new Vuex.Store({
           dispatch("removeCategory", category.id);
         });
       }
-      
+
       commit("removeCategory", categoryID);
     }
   },
   modules: {},
+  plugins: [vuexPersist.plugin]
 });
