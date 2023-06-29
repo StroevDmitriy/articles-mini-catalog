@@ -86,9 +86,6 @@
         />
       </div>
     </section>
-
-    <section v-if="childCategoriesID.length && isParentCategory">
-    </section>
   </section>
 </template>
 
