@@ -1,4 +1,5 @@
 # articles-mini-catalog
+Vue2 app with Vuex and basic catalog functionality
 
 ## Project setup
 ```
@@ -22,3 +23,4 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
