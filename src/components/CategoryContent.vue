@@ -161,9 +161,9 @@ export default {
     openCategoryPopup() {
       store.dispatch("toggleCategoryPopup", this.id);
     },
-    countMaxHeight() {
-      this.contentMaxHeight = this.$refs.categoryContent.clientHeight;
-
+    async countMaxHeight() {
+      this.contentMaxHeight = this.$refs.categoryContent.scrollHeight;
+      await this.$nextTick();
       if (this.hasParent) {
         this.isCategoryShown = false;
       }
@@ -172,6 +172,12 @@ export default {
   mounted() {
     this.countMaxHeight();
   },
+  watch: {
+    childCategoriesData: async function() {
+      await this.$nextTick();
+      this.countMaxHeight();
+    }
+  }
 };
 
 </script>
