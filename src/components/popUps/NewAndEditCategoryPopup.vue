@@ -230,15 +230,8 @@ export default {
     onInputInputed(input) {
       const optionsSettings = this.$data[input.name];
       this.showOptions(input.name);
-
-      if (!input.value) {
-        optionsSettings.value = [];
-        optionsSettings.isVisible = false;
-        return;
-      }
-
-      optionsSettings.value = store.getters.getCategoryByName(input.value);
-      optionsSettings.isVisible = this.parentCategoryOptions.value.length ? true : false;
+      optionsSettings.value = store.getters.getArticlesByName(input.value);
+      optionsSettings.isVisible = this.innerArticlesOptions.value.length ? true : false;
     },
   },
   watch: {

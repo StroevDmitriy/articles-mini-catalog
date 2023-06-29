@@ -178,10 +178,10 @@ export default new Vuex.Store({
     isEditArticlePopupVisible: state => state.isEditArticlePopupVisible,
     getAllCategories: state => state.categories,
     getAllArticles: state => state.articles,
-    getCategoryByName: state => categoryName => {
-      return state.categories.filter(category => {
-        if (!category.title) return false;
-        return category.title.toLowerCase().includes(categoryName.toLowerCase());
+    getArticlesByName: state => articleName => {
+      return state.articles.filter(article => {
+        if (!article.title) return false;
+        return article.title.toLowerCase().includes(articleName.toLowerCase());
       });
     },
     getCategoryByID: state => categoryID => {

@@ -44,12 +44,12 @@
             <button
               type="button"
               class="category__button category__edit"
-              @click="openCategoryPopup"
+              @mousedown="openCategoryPopup"
             >Редактировать</button>
             <button
               type="button"
               class="category__button category__remove"
-              @click="openRemoveCategoryPopup"
+              @mousedown="openRemoveCategoryPopup"
             >Удалить</button>
           </div>
         </div>
@@ -160,15 +160,18 @@ export default {
     },
     openCategoryPopup() {
       store.dispatch("toggleCategoryPopup", this.id);
+    },
+    countMaxHeight() {
+      this.contentMaxHeight = this.$refs.categoryContent.clientHeight;
+
+      if (this.hasParent) {
+        this.isCategoryShown = false;
+      }
     }
   },
   mounted() {
-    this.contentMaxHeight = this.$refs.categoryContent.clientHeight;
-
-    if (this.hasParent) {
-      this.isCategoryShown = false;
-    }
-  }
+    this.countMaxHeight();
+  },
 };
 
 </script>
@@ -183,7 +186,11 @@ export default {
 
 .category__content {
   transform-origin: 50% 0;
-  transition: max-height .5s;
+  transition: max-height .5s, overflow .5s;
+  overflow: visible;
+}
+
+.category__content_hided {
   overflow: hidden;
 }
 
@@ -253,6 +260,7 @@ export default {
   gap: 4px;
   transform-origin: 50% 0;
   transition: transform .2s;
+  z-index: 1000;
 }
 
 .category__menu_collapsed {
