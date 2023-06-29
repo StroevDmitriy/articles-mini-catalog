@@ -127,44 +127,7 @@ export default new Vuex.Store({
         categories: []
       },
     ],
-    categories: [
-      {
-        id: "0",
-        title: "Название категории",
-        parentCategory: null,
-        articlesID: ["0","1","2","4","5","6"],
-      },
-      {
-        id: "1",
-        title: "First layer child category 1",
-        parentCategory: "0",
-        articlesID: ["1","7","8"],
-      },
-      {
-        id: "21",
-        title: "Second layer child category 1",
-        parentCategory: "1",
-        articlesID: ["1","7","8"],
-      },
-      {
-        id: "22",
-        title: "Second layer child category 2",
-        parentCategory: "1",
-        articlesID: ["8","9","10","11"],
-      },
-      {
-        id: "3",
-        title: "Category 3",
-        parentCategory: null,
-        articlesID: ["8","9"],
-      },
-      {
-        id: "4",
-        title: "Category 4",
-        parentCategory: null,
-        articlesID: ["10","11"],
-      }
-    ],
+    categories: [],
     isCategoryPopupVisible: false,
     isRemoveCategoryPopupVisible: false,
     isEditArticlePopupVisible: false,
@@ -306,6 +269,9 @@ export default new Vuex.Store({
           }
           category.articlesID = Array.from(articlesIDSet);
         });
+    },
+    resetCategories: (state) => {
+      state.categories.splice(0);
     }
   },
   actions: {
@@ -352,7 +318,10 @@ export default new Vuex.Store({
       }
 
       commit("removeCategory", categoryID);
-    }
+    },
+    resetState({ commit }) {
+      commit("resetCategories");
+    },
   },
   modules: {},
   plugins: [vuexPersist.plugin]

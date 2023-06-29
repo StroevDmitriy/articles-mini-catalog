@@ -17,6 +17,10 @@
       <EditArticlePopup
         :articleToEditID="articleToEditID"
       />
+      <button
+        class="reset-state"
+        @click="resetState"
+      >Reset state</button>
     </div>
   </div>
 </template>
@@ -50,6 +54,11 @@ export default {
     return {
       loading: true
     };
+  },
+  methods: {
+    resetState() {
+      store.dispatch("resetState");
+    }
   },
   created() {
     setTimeout(() => {
@@ -99,5 +108,16 @@ export default {
 
 .loader {
   animation: roll 1s infinite linear;
+}
+
+.reset-state {
+  position: fixed;
+  right: 20px;
+  top: 10px;
+  padding: 5px;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #0069d9;
+  z-index: 500;
 }
 </style>
