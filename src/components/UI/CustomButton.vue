@@ -4,10 +4,10 @@
     :class="[
       'custom-button',
       {
-        'action-button': buttonType === 'action',
-        'passive-button': buttonType === 'passive',
-        'inactive-button': buttonType === 'inactive',
-        'custom-button__full-width': fullWidth,
+        'custom-button_action': buttonType === 'action',
+        'custom-button_passive': buttonType === 'passive',
+        'custom-button_inactive': buttonType === 'inactive',
+        'custom-button_full-width': fullWidth,
       },
     ]"
     @click="click"
@@ -27,7 +27,7 @@ export default {
       default: "passive",
       type: String,
       validator(value) {
-        return ["action", "passive"].includes(value);
+        return ["action", "passive", "inactive"].includes(value);
       }
     },
     fullWidth: {
@@ -56,42 +56,42 @@ export default {
   transition: background-color .3s;
   cursor: pointer;
 }
-.action-button {
+.custom-button_action {
   color: #fff;
   background-color: #ED5252;
 }
 
-.action-button:hover {
+.custom-button_action:hover {
   background-color: #F06C6C;
 }
 
-.action-button:active {
+.custom-button_action:active {
   background-color: #D54A4A;
 }
 
-.action-button:disabled {
+.custom-button_action:disabled {
   background-color: #F0F1F2;
 }
 
-.passive-button {
+.custom-button_passive {
   color: #303446;
   background-color: rgba(10, 14, 32, 0.07);
 }
 
-.passive-button:hover {
+.custom-button_passive:hover {
   background-color: rgba(10, 14, 32, 0.1);
 }
 
-.passive-button:active {
+.custom-button_passive:active {
   background-color: rgba(10, 14, 32, 0.15);
 }
 
-.passive-button:disabled {
+.custom-button_passive:disabled {
   color: #fff;
   background-color: rgba(197, 199, 208, 1);
 }
 
-.custom-button__full-width {
+.custom-button_full-width {
   width: 100%;
 }
 </style>
