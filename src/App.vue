@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     resetState() {
-      store.dispatch("resetState");
+      this.$store.commit("resetCategories");
     }
   },
   created() {

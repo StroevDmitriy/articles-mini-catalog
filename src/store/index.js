@@ -243,8 +243,16 @@ export default new Vuex.Store({
     setCategoryIDToRemove: (state, categoryID) => {
       state.categoryIDToRemove = categoryID;
     },
-    removeCategory: (state, categoryId) => {
-      const categoryToRemoveIndex = state.categories.findIndex(category => category.id === categoryId);
+    removeCategory: (state, categoryID) => {
+      const childCategoriesIDToRemove = state.categories.filter(category => category.parentCategory === categoryID);
+      
+      if (childCategoriesIDToRemove.length) {
+        childCategoriesIDToRemove.forEach(category => {
+          this.commit("removeCategory", category.id);
+        });
+      }
+
+      const categoryToRemoveIndex = state.categories.findIndex(category => category.id === categoryID);
       state.categories.splice(categoryToRemoveIndex, 1);
     },
     updateCategoryToEditID: (state, categoryId) => {
@@ -281,9 +289,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    toggleArticleLike({ commit }, payload) {
-      commit("toggleArticleLike", payload);
-    },
     toggleCategoryPopup({ commit }, categoryID) {
       commit("updateCategoryToEditID", categoryID);
       commit("toggleCategoryPopup");
@@ -308,25 +313,9 @@ export default new Vuex.Store({
       commit("setCategoryIDToRemove", categoryID);
       commit("toggleRemoveCategoryPopup");
     },
-    closeRemoveCategoryPopup({ commit }) {
-      commit("toggleRemoveCategoryPopup");
-    },
-    clickRemoveCategory({ dispatch, commit }, categoryID) {
-      dispatch("removeCategory", categoryID);
-      commit("toggleRemoveCategoryPopup");
-    },
-    removeCategory({ dispatch, commit, state }, categoryID) {
-      const childCategoriesIDToRemove = state.categories.filter(category => category.parentCategory === categoryID);
-      if (childCategoriesIDToRemove.length) {
-        childCategoriesIDToRemove.forEach(category => {
-          dispatch("removeCategory", category.id);
-        });
-      }
-
+    removeCategory({ commit }, categoryID) {
       commit("removeCategory", categoryID);
-    },
-    resetState({ commit }) {
-      commit("resetCategories");
+      commit("toggleRemoveCategoryPopup");
     },
   },
   modules: {},

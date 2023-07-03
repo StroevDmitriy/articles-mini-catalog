@@ -57,10 +57,10 @@ export default {
   },
   methods: {
     closePopup() {
-      this.$store.dispatch("closeRemoveCategoryPopup");
+      this.$store.commit("toggleRemoveCategoryPopup");
     },
     removeCategory() {
-      this.$store.dispatch("clickRemoveCategory", this.$store.getters.getCategoryToRemoveID);
+      this.$store.dispatch("removeCategory", this.$store.getters.getCategoryToRemoveID);
     }
   },
 };

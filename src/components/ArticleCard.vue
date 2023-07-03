@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     toggleLike(id, liked) {
-      this.$store.dispatch("toggleArticleLike", { id, liked });
+      this.$store.commit("toggleArticleLike", { id, liked });
     },
     openEditArticlePopup() {
       this.$store.dispatch("toggleEditArticlePopup", this.$vnode.key);
