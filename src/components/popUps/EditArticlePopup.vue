@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import store from "@/store";
 import CustomButton from "../UI/CustomButton.vue";
 import CustomInput from "../UI/CustomInput.vue";
 
@@ -110,21 +109,21 @@ export default {
   },
   computed: {
     isEditArticlePopupVisible() {
-      return store.getters.isEditArticlePopupVisible;
+      return this.$store.getters.isEditArticlePopupVisible;
     },
   },
   methods: {
     updateArticle() {
-      store.dispatch("updateArticle", {
+      this.$store.dispatch("updateArticle", {
         id: this.articleToEditID,
         categoriesID: this.categoriesSelected.map(category => category.id),
       });
     },
     closePopup() {
-      store.dispatch("toggleEditArticlePopup");
+      this.$store.dispatch("toggleEditArticlePopup");
     },
     openCategoriesOptions(optionsName) {
-      this.categoriesOptions.value = store.getters.getRestCategories(
+      this.categoriesOptions.value = this.$store.getters.getRestCategories(
         this.categoriesSelected.map(category => category.id)
       );
 
@@ -150,7 +149,7 @@ export default {
   },
   watch: {
     articleToEditID(articleID) {
-      this.categoriesSelected = store.getters.getCategoriesWithArticle(articleID);
+      this.categoriesSelected = this.$store.getters.getCategoriesWithArticle(articleID);
     }
   }
 };

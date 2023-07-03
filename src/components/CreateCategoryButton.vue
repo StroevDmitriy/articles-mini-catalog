@@ -9,7 +9,6 @@
 
 <script>
 import CustomButton from "./UI/CustomButton.vue";
-import store from "@/store";
 
 export default {
   name: "CreateCategoryButton",
@@ -21,7 +20,7 @@ export default {
   },
   methods: {
     openCategoryPopup() {
-      store.dispatch("toggleCategoryPopup");
+      this.$store.dispatch("toggleCategoryPopup");
     }
   }
 };

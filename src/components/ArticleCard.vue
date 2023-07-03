@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import store from "@/store";
-
 export default {
   name: "ArticleCard",
   components: {},
@@ -73,10 +71,10 @@ export default {
   },
   methods: {
     toggleLike(id, liked) {
-      store.dispatch("toggleArticleLike", { id, liked });
+      this.$store.dispatch("toggleArticleLike", { id, liked });
     },
     openEditArticlePopup() {
-      store.dispatch("toggleEditArticlePopup", this.$vnode.key);
+      this.$store.dispatch("toggleEditArticlePopup", this.$vnode.key);
     }
   }
 };

@@ -124,7 +124,6 @@
 </template>
 
 <script>
-import store from "@/store";
 import CustomInput from "../UI/CustomInput.vue";
 import CustomButton from "../UI/CustomButton.vue";
 
@@ -158,7 +157,7 @@ export default {
   },
   computed: {
     isCategoryPopupVisible() {
-      return store.getters.isCategoryPopupVisible;
+      return this.$store.getters.isCategoryPopupVisible;
     },
   },
   methods: {
@@ -170,7 +169,7 @@ export default {
       }
     },
     createCategory() {
-      store.dispatch("createCategory", {
+      this.$store.dispatch("createCategory", {
         name: this.categoryName,
         parentCategory: this.categoryParentId || null,
         articles: this.innerArticlesSelected.map(article => article.id),
@@ -178,7 +177,7 @@ export default {
       this.resetFields();
     },
     updateCategory() {
-      store.dispatch("updateCategory", {
+      this.$store.dispatch("updateCategory", {
         id: this.categoryToEditID,
         title: this.categoryName,
         parentCategory: this.categoryParentId || null,
@@ -192,7 +191,7 @@ export default {
       this.innerArticlesSelected = [];
     },
     closePopup() {
-      store.dispatch("toggleCategoryPopup");
+      this.$store.dispatch("toggleCategoryPopup");
     },
     showOptions(optionsName) {
       this.$data[optionsName].isVisible = true;
@@ -201,7 +200,7 @@ export default {
       this.$data[optionsName].isVisible = false;
     },
     openParentCategoryOptions(optionsName) {
-      this.$data[optionsName].value = store.getters.getAllCategories;
+      this.$data[optionsName].value = this.$store.getters.getAllCategories;
       this.showOptions(optionsName);
     },
     chooseParentCategoryOption(option) {
@@ -210,7 +209,7 @@ export default {
       this.hideOptions("parentCategoryOptions");
     },
     openInnerArticlesOptions(optionsName) {
-      this.innerArticlesOptions.value = store.getters.getRestArticles(
+      this.innerArticlesOptions.value = this.$store.getters.getRestArticles(
         this.innerArticlesSelected.map(article => article.id)
       );
 
@@ -230,7 +229,7 @@ export default {
     onInputInputed(input) {
       const optionsSettings = this.$data[input.name];
       this.showOptions(input.name);
-      optionsSettings.value = store.getters.getArticlesByNameExceptList({
+      optionsSettings.value = this.$store.getters.getArticlesByNameExceptList({
         value: input.value,
         except: this.innerArticlesSelected.map(article => article.id)
       });
@@ -244,11 +243,11 @@ export default {
           title,
           parentCategory,
           articlesID
-        } = store.getters.getCategoryByID(this.categoryToEditID);
+        } = this.$store.getters.getCategoryByID(this.categoryToEditID);
         this.categoryName = title;
         this.categoryParentId = parentCategory;
-        this.categoryParentTitle = store.getters.getCategoryByID(parentCategory)?.title;
-        this.innerArticlesSelected = store.getters.getArticlesByID(articlesID).map(article => {
+        this.categoryParentTitle = this.$store.getters.getCategoryByID(parentCategory)?.title;
+        this.innerArticlesSelected = this.$store.getters.getArticlesByID(articlesID).map(article => {
           return {
             id: article.id,
             title: article.title

@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import store from "@/store";
 import CategoryContent from "./CategoryContent.vue";
 import CreateCategoryButton from "./CreateCategoryButton.vue";
 
@@ -46,7 +45,7 @@ export default {
   methods: {
   },
   created() {
-    this.categoriesData = store.getters.getAllCategories;
+    this.categoriesData = this.$store.getters.getAllCategories;
   },
 };
 </script>

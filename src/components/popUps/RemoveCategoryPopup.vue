@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import store from "@/store";
 import CustomButton from "../UI/CustomButton.vue";
 
 export default {
@@ -53,15 +52,15 @@ export default {
   },
   computed: {
     isRemoveCategoryPopupVisible() {
-      return store.getters.isRemoveCategoryPopupVisible;
+      return this.$store.getters.isRemoveCategoryPopupVisible;
     },
   },
   methods: {
     closePopup() {
-      store.dispatch("closeRemoveCategoryPopup");
+      this.$store.dispatch("closeRemoveCategoryPopup");
     },
     removeCategory() {
-      store.dispatch("clickRemoveCategory", store.getters.getCategoryToRemoveID);
+      this.$store.dispatch("clickRemoveCategory", this.$store.getters.getCategoryToRemoveID);
     }
   },
 };

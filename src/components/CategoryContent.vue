@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import store from "@/store";
 import ArticleCard from "./ArticleCard.vue";
 
 export default {
@@ -132,14 +131,14 @@ export default {
   },
   computed: {
     categoryArticles() {
-      return store.getters.getArticlesByID(this.articlesID);
+      return this.$store.getters.getArticlesByID(this.articlesID);
     },
     childCategoriesData() {
-      const childCategories = store.getters.getChildCategories(this.id);
+      const childCategories = this.$store.getters.getChildCategories(this.id);
       return childCategories.length ? childCategories : [];
     },
     articlesCount() {
-      return store.getters.getArticlesCount(this.id);
+      return this.$store.getters.getArticlesCount(this.id);
     }
   },
   methods: {
@@ -153,10 +152,10 @@ export default {
       this.isCategoryMenuShown = false;
     },
     openRemoveCategoryPopup() {
-      store.dispatch("openRemoveCategoryPopup", this.id);
+      this.$store.dispatch("openRemoveCategoryPopup", this.id);
     },
     openCategoryPopup() {
-      store.dispatch("toggleCategoryPopup", this.id);
+      this.$store.dispatch("toggleCategoryPopup", this.id);
     },
     async countMaxHeight() {
       this.contentMaxHeight = this.$refs.categoryContent.scrollHeight;

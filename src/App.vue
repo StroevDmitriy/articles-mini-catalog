@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import store from "./store";
 import ToolBar from "./components/ToolBar.vue";
 import CategoryList from "./components/CategoryList.vue";
 import NewAndEditCategoryPopup from "./components/popUps/NewAndEditCategoryPopup.vue";
@@ -44,10 +43,10 @@ export default {
   },
   computed: {
     categoryToEditID() {
-      return store.getters.getCategoryToEditID;
+      return this.$store.getters.getCategoryToEditID;
     },
     articleToEditID() {
-      return store.getters.getArticleToEditID;
+      return this.$store.getters.getArticleToEditID;
     }
   },
   data() {

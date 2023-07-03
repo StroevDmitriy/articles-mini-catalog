@@ -6,6 +6,7 @@ import "normalize.css";
 import "./assets/style.css";
 
 Vue.config.productionTip = false;
+Vue.prototype.$store = store;
 
 new Vue({
   store,
