@@ -15,9 +15,6 @@ export default {
   components: {
     CustomButton,
   },
-  data() {
-    return {};
-  },
   methods: {
     openPopup() {
       this.$store.dispatch("toggleNewAndEditCategoryPopup");

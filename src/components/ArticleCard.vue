@@ -43,7 +43,6 @@
 <script>
 export default {
   name: "ArticleCard",
-  components: {},
   props: {
     previewName: {
       type: String,
@@ -65,9 +64,6 @@ export default {
       type: Boolean,
       default: false,
     }
-  },
-  data() {
-    return { };
   },
   methods: {
     toggleLike(id, liked) {

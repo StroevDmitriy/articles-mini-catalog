@@ -15,9 +15,6 @@ export default {
   components: {
     CustomInput
   },
-  data() {
-    return {};
-  },
 };
 </script>
 

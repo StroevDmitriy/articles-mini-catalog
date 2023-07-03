@@ -39,8 +39,6 @@ export default {
   computed: mapState([
     "categories"
   ]),
-  methods: {
-  },
 };
 </script>
 

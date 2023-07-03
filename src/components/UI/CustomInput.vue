@@ -42,7 +42,6 @@
 <script>
 export default {
   name: "CustomInput",
-  components: {},
   props: {
     placeholder: {
       type: String,
@@ -68,10 +67,6 @@ export default {
       type: Boolean,
       default: false,
     }
-  },
-  data() {
-    return {
-    };
   },
   methods: {
     inputClicked() {

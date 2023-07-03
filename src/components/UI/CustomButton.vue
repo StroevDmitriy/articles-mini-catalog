@@ -35,9 +35,6 @@ export default {
       type: Boolean
     }
   },
-  data() {
-    return {};
-  },
   methods: {
     click() {
       this.$emit("click");

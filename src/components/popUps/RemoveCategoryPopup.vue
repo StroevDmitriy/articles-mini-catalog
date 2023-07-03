@@ -48,9 +48,6 @@ export default {
   components: {
     CustomButton,
   },
-  data() {
-    return {};
-  },
   computed: {
     ...mapState([
       "isRemoveCategoryPopupVisible",
