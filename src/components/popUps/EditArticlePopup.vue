@@ -85,6 +85,7 @@
 <script>
 import CustomButton from "../UI/CustomButton.vue";
 import CustomInput from "../UI/CustomInput.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "EditArticlePopup",
@@ -108,9 +109,7 @@ export default {
     };
   },
   computed: {
-    isEditArticlePopupVisible() {
-      return this.$store.getters.isEditArticlePopupVisible;
-    },
+    ...mapState(["isEditArticlePopupVisible"]),
   },
   methods: {
     updateArticle() {

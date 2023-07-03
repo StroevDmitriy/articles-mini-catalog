@@ -41,6 +41,7 @@
 
 <script>
 import CustomButton from "../UI/CustomButton.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "RemoveCategoryPopup",
@@ -51,16 +52,17 @@ export default {
     return {};
   },
   computed: {
-    isRemoveCategoryPopupVisible() {
-      return this.$store.getters.isRemoveCategoryPopupVisible;
-    },
+    ...mapState([
+      "isRemoveCategoryPopupVisible",
+      "categoryToRemoveID"
+    ]),
   },
   methods: {
     closePopup() {
       this.$store.commit("toggleRemoveCategoryPopup");
     },
     removeCategory() {
-      this.$store.dispatch("removeCategory", this.$store.getters.getCategoryToRemoveID);
+      this.$store.dispatch("removeCategory", this.categoryToRemoveID);
     }
   },
 };

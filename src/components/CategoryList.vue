@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="categoriesData.length">
+    <div v-if="categories.length">
       <section
-        v-for="category in categoriesData"
+        v-for="category in categories"
         :key="category.id"
       >
         <CategoryContent
@@ -28,6 +28,7 @@
 <script>
 import CategoryContent from "./CategoryContent.vue";
 import CreateCategoryButton from "./CreateCategoryButton.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "ArticlesList",
@@ -35,17 +36,10 @@ export default {
     CreateCategoryButton,
     CategoryContent,
   },
-  data() {
-    return {
-      categoriesData: [],
-    };
-  },
-  computed: {
-  },
+  computed: mapState([
+    "categories"
+  ]),
   methods: {
-  },
-  created() {
-    this.categoriesData = this.$store.getters.getAllCategories;
   },
 };
 </script>

@@ -128,19 +128,14 @@ export default new Vuex.Store({
       },
     ],
     categories: [],
-    isCategoryPopupVisible: false,
+    isNewAndEditCategoryPopupVisible: false,
     isRemoveCategoryPopupVisible: false,
     isEditArticlePopupVisible: false,
-    categoryIDToRemove: null,
+    categoryToRemoveID: null,
     categoryToEditID: null,
     articleToEditID: null,
   },
   getters: {
-    isCategoryPopupVisible: state => state.isCategoryPopupVisible,
-    isRemoveCategoryPopupVisible: state => state.isRemoveCategoryPopupVisible,
-    isEditArticlePopupVisible: state => state.isEditArticlePopupVisible,
-    getAllCategories: state => state.categories,
-    getAllArticles: state => state.articles,
     getArticlesByNameExceptList: state => options => {
       const articleName = options.value;
       const except = options.except;
@@ -180,8 +175,6 @@ export default new Vuex.Store({
             };
           });
     },
-    getCategoryToRemoveID: state => state.categoryIDToRemove,
-    getCategoryToEditID: state => state.categoryToEditID,
     getArticlesCount: (state, getters) => categoryID => {
       const childCategories = getters.getChildCategories(categoryID);
       if (childCategories.length) {
@@ -192,7 +185,6 @@ export default new Vuex.Store({
       }
       return getters.getCategoryByID(categoryID).articlesID.length;
     },
-    getArticleToEditID: state => state.articleToEditID,
     getCategoriesWithArticle: state => articleID => {
       return state.categories
         .filter(category => category.articlesID.includes(articleID))
@@ -224,7 +216,7 @@ export default new Vuex.Store({
       }
     },
     toggleNewAndEditCategoryPopup: state => {
-      state.isCategoryPopupVisible = !state.isCategoryPopupVisible;
+      state.isNewAndEditCategoryPopupVisible = !state.isNewAndEditCategoryPopupVisible;
     },
     toggleRemoveCategoryPopup: state => {
       state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
@@ -318,6 +310,5 @@ export default new Vuex.Store({
       commit("toggleRemoveCategoryPopup");
     },
   },
-  modules: {},
   plugins: [vuexPersist.plugin]
 });

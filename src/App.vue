@@ -31,6 +31,7 @@ import CategoryList from "./components/CategoryList.vue";
 import NewAndEditCategoryPopup from "./components/popUps/NewAndEditCategoryPopup.vue";
 import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
 import EditArticlePopup from "./components/popUps/EditArticlePopup.vue";
+import { mapState } from "vuex"; 
 
 export default {
   name: "App",
@@ -41,14 +42,7 @@ export default {
     RemoveCategoryPopup,
     EditArticlePopup
   },
-  computed: {
-    categoryToEditID() {
-      return this.$store.getters.getCategoryToEditID;
-    },
-    articleToEditID() {
-      return this.$store.getters.getArticleToEditID;
-    }
-  },
+  computed: mapState(["categoryToEditID", "articleToEditID"]),
   data() {
     return {
       loading: true

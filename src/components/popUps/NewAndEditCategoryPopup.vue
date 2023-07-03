@@ -2,7 +2,7 @@
   <div
     :class="[
       'popup-container',
-      { 'popup-container__shown': isCategoryPopupVisible }
+      { 'popup-container__shown': isNewAndEditCategoryPopupVisible }
     ]"
   >
     <div
@@ -122,10 +122,11 @@
     </section>
   </div>
 </template>
-
+NewAndEdit
 <script>
 import CustomInput from "../UI/CustomInput.vue";
 import CustomButton from "../UI/CustomButton.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "NewAndEditCategoryPopup",
@@ -156,9 +157,10 @@ export default {
     };
   },
   computed: {
-    isCategoryPopupVisible() {
-      return this.$store.getters.isCategoryPopupVisible;
-    },
+    ...mapState([
+      "categories",
+      "isNewAndEditCategoryPopupVisible"
+    ]),
   },
   methods: {
     saveCategory() {
@@ -200,7 +202,7 @@ export default {
       this.$data[optionsName].isVisible = false;
     },
     openParentCategoryOptions(optionsName) {
-      this.$data[optionsName].value = this.$store.getters.getAllCategories;
+      this.$data[optionsName].value = this.categories;
       this.showOptions(optionsName);
     },
     chooseParentCategoryOption(option) {
