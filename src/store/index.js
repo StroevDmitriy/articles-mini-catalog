@@ -206,11 +206,13 @@ export default new Vuex.Store({
     },
 
     fetchArticles({ commit }) {
-      setTimeout(async () => {
-        const articles = (await import("../mocks/articlesData")).default;
-        console.log("fetchArticles: ", articles);
-        commit("setArticles", articles);
-      }, 1000);
+      return new Promise((resolve) => {
+        setTimeout(async() => {
+          const articles = (await import("../mocks/articlesData")).default;
+          commit("setArticles", articles);
+          resolve();
+        }, 1500);
+      });
 
     },
   },

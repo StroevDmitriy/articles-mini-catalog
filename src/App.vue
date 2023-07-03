@@ -31,7 +31,7 @@ import CategoryList from "./components/CategoryList.vue";
 import NewAndEditCategoryPopup from "./components/popUps/NewAndEditCategoryPopup.vue";
 import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
 import EditArticlePopup from "./components/popUps/EditArticlePopup.vue";
-import { mapState, mapActions } from "vuex"; 
+import { mapState, mapActions, mapMutations } from "vuex"; 
 
 export default {
   name: "App",
@@ -49,14 +49,15 @@ export default {
     };
   },
   methods: {
-    resetState() {
-      this.$store.commit("resetCategories");
-    },
+    ...mapMutations({
+      resetState: "resetCategories"
+    }),
     ...mapActions(["fetchArticles"])
   },
   created() {
-    this.fetchArticles();
-    this.loading = false;
+    this.fetchArticles().then(() => {
+      this.loading = false;
+    });
   }
 };
 </script>
