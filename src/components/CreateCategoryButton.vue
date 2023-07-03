@@ -3,7 +3,7 @@
     button-label="Создать категорию"
     button-type="action"
     class="create-category-button"
-    @click="openCategoryPopup"
+    @click="openPopup"
   />
 </template>
 
@@ -19,8 +19,8 @@ export default {
     return {};
   },
   methods: {
-    openCategoryPopup() {
-      this.$store.dispatch("toggleCategoryPopup");
+    openPopup() {
+      this.$store.dispatch("toggleNewAndEditCategoryPopup");
     }
   }
 };

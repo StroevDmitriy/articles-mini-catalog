@@ -223,14 +223,14 @@ export default new Vuex.Store({
         Vue.set(article, "liked", true);
       }
     },
-    toggleCategoryPopup: state => {
+    toggleNewAndEditCategoryPopup: state => {
       state.isCategoryPopupVisible = !state.isCategoryPopupVisible;
-    },
-    toggleEditArticlePopup: state => {
-      state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
     },
     toggleRemoveCategoryPopup: state => {
       state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
+    },
+    toggleEditArticlePopup: state => {
+      state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
     },
     createCategory: (state, newCategory) => {
       state.categories.push({
@@ -240,7 +240,7 @@ export default new Vuex.Store({
         articlesID: newCategory.articles
       });
     },
-    setCategoryIDToRemove: (state, categoryID) => {
+    setCategoryToRemoveID: (state, categoryID) => {
       state.categoryIDToRemove = categoryID;
     },
     removeCategory: (state, categoryID) => {
@@ -289,29 +289,29 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    toggleCategoryPopup({ commit }, categoryID) {
-      commit("updateCategoryToEditID", categoryID);
-      commit("toggleCategoryPopup");
-    },
     toggleEditArticlePopup({ commit }, articleID) {
       commit("updateArticleToEditID", articleID);
       commit("toggleEditArticlePopup");
-    },
-    createCategory({ commit }, newCategory) {
-      commit("createCategory", newCategory);
-      commit("toggleCategoryPopup");
-    },
-    updateCategory({ commit }, updatedCategory) {
-      commit("updateCategory", updatedCategory);
-      commit("toggleCategoryPopup");
     },
     updateArticle({ commit }, updatedArticle) {
       commit("updateArticle", updatedArticle);
       commit("toggleEditArticlePopup");
     },
+    toggleNewAndEditCategoryPopup({ commit }, categoryID) {
+      commit("updateCategoryToEditID", categoryID);
+      commit("toggleNewAndEditCategoryPopup");
+    },
     openRemoveCategoryPopup({ commit }, categoryID) {
-      commit("setCategoryIDToRemove", categoryID);
+      commit("setCategoryToRemoveID", categoryID);
       commit("toggleRemoveCategoryPopup");
+    },
+    createCategory({ commit }, newCategory) {
+      commit("createCategory", newCategory);
+      commit("toggleNewAndEditCategoryPopup");
+    },
+    updateCategory({ commit }, updatedCategory) {
+      commit("updateCategory", updatedCategory);
+      commit("toggleNewAndEditCategoryPopup");
     },
     removeCategory({ commit }, categoryID) {
       commit("removeCategory", categoryID);

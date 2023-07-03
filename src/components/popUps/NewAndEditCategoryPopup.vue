@@ -191,7 +191,7 @@ export default {
       this.innerArticlesSelected = [];
     },
     closePopup() {
-      this.$store.dispatch("toggleCategoryPopup");
+      this.$store.dispatch("toggleNewAndEditCategoryPopup");
     },
     showOptions(optionsName) {
       this.$data[optionsName].isVisible = true;

@@ -44,7 +44,7 @@
             <button
               type="button"
               class="category__button category__edit"
-              @mousedown="openCategoryPopup"
+              @mousedown="openNewAndEditCategoryPopup"
             >Редактировать</button>
             <button
               type="button"
@@ -154,8 +154,8 @@ export default {
     openRemoveCategoryPopup() {
       this.$store.dispatch("openRemoveCategoryPopup", this.id);
     },
-    openCategoryPopup() {
-      this.$store.dispatch("toggleCategoryPopup", this.id);
+    openNewAndEditCategoryPopup() {
+      this.$store.dispatch("toggleNewAndEditCategoryPopup", this.id);
     },
     async countMaxHeight() {
       this.contentMaxHeight = this.$refs.categoryContent.scrollHeight;
