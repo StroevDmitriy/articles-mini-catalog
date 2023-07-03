@@ -31,7 +31,7 @@ import CategoryList from "./components/CategoryList.vue";
 import NewAndEditCategoryPopup from "./components/popUps/NewAndEditCategoryPopup.vue";
 import RemoveCategoryPopup from "./components/popUps/RemoveCategoryPopup.vue";
 import EditArticlePopup from "./components/popUps/EditArticlePopup.vue";
-import { mapState } from "vuex"; 
+import { mapState, mapActions } from "vuex"; 
 
 export default {
   name: "App",
@@ -51,12 +51,12 @@ export default {
   methods: {
     resetState() {
       this.$store.commit("resetCategories");
-    }
+    },
+    ...mapActions(["fetchArticles"])
   },
   created() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
+    this.fetchArticles();
+    this.loading = false;
   }
 };
 </script>
