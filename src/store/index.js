@@ -8,12 +8,10 @@ Vue.use(Vuex);
 const vuexPersist = new VuexPersistence({
   key: "articles-app",
   storage: window.localStorage,
-  reducer: (state) => (
-    {
-      articles: state.articles,
-      categories: state.categories,
-    }
-  )
+  reducer: (state) => ({
+    articles: state.articles,
+    categories: state.categories,
+  }),
 });
 
 export default new Vuex.Store({
@@ -28,65 +26,65 @@ export default new Vuex.Store({
     articleToEditID: null,
   },
   getters: {
-    getArticlesByNameExceptList: state => options => {
+    getArticlesByNameExceptList: (state) => (options) => {
       const articleName = options.value;
       const except = options.except;
 
-      return state.articles.filter(article => {
-        if (
-          !article.title ||
-          except.includes(article.id)
-        ) return false;
+      return state.articles.filter((article) => {
+        if (!article.title || except.includes(article.id)) return false;
         return article.title.toLowerCase().includes(articleName.toLowerCase());
       });
     },
-    getCategoryByID: state => categoryID => {
-      return state.categories.find(category => category.id === categoryID);
+    getCategoryByID: (state) => (categoryID) => {
+      return state.categories.find((category) => category.id === categoryID);
     },
-    getArticlesByID: state => articlesID => state.articles.filter(article => articlesID.includes(article.id)),
-    getChildCategories: state => parentCategoryID => {
-      return state.categories.filter(category => category.parentCategory === parentCategoryID);
+    getArticlesByID: (state) => (articlesID) =>
+      state.articles.filter((article) => articlesID.includes(article.id)),
+    getChildCategories: (state) => (parentCategoryID) => {
+      return state.categories.filter(
+        (category) => category.parentCategory === parentCategoryID
+      );
     },
-    getRestArticles: state => articlesID => {
-      return state.articles.
-          filter(article => !articlesID.includes(article.id))
-          .map(article => {
-            return {
-              id: article.id,
-              title: article.title,
-            };
-          });
-    },
-    getRestCategories: state => categoriesID => {
-      return state.categories.
-          filter(category => !categoriesID.includes(category.id))
-          .map(category => {
-            return {
-              id: category.id,
-              title: category.title,
-            };
-          });
-    },
-    getArticlesCount: (state, getters) => categoryID => {
-      const childCategories = getters.getChildCategories(categoryID);
-      if (childCategories.length) {
-        return childCategories.reduce(
-          (acc, category) =>  acc + getters.getArticlesCount(category.id),
-          getters.getCategoryByID(categoryID).articlesID.length
-        );
-      }
-      return getters.getCategoryByID(categoryID).articlesID.length;
-    },
-    getCategoriesWithArticle: state => articleID => {
-      return state.categories
-        .filter(category => category.articlesID.includes(articleID))
-        .map(article => {
+    getRestArticles: (state) => (articlesID) => {
+      return state.articles
+        .filter((article) => !articlesID.includes(article.id))
+        .map((article) => {
           return {
             id: article.id,
             title: article.title,
           };
         });
-    }
+    },
+    getRestCategories: (state) => (categoriesID) => {
+      return state.categories
+        .filter((category) => !categoriesID.includes(category.id))
+        .map((category) => {
+          return {
+            id: category.id,
+            title: category.title,
+          };
+        });
+    },
+    getArticlesCount: (state, getters) => (categoryID) => {
+      const childCategories = getters.getChildCategories(categoryID);
+      if (childCategories.length) {
+        return childCategories.reduce(
+          (acc, category) => acc + getters.getArticlesCount(category.id),
+          getters.getCategoryByID(categoryID).articlesID.length
+        );
+      }
+      return getters.getCategoryByID(categoryID).articlesID.length;
+    },
+    getCategoriesWithArticle: (state) => (articleID) => {
+      return state.categories
+        .filter((category) => category.articlesID.includes(articleID))
+        .map((article) => {
+          return {
+            id: article.id,
+            title: article.title,
+          };
+        });
+    },
   },
   mutations: {
     setArticles: (state, articles) => {
@@ -110,13 +108,13 @@ export default new Vuex.Store({
         Vue.set(article, "liked", true);
       }
     },
-    toggleNewAndEditCategoryPopup: state => {
       state.isNewAndEditCategoryPopupVisible = !state.isNewAndEditCategoryPopupVisible;
+    toggleNewAndEditCategoryPopup: (state) => {
     },
-    toggleRemoveCategoryPopup: state => {
+    toggleRemoveCategoryPopup: (state) => {
       state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
     },
-    toggleEditArticlePopup: state => {
+    toggleEditArticlePopup: (state) => {
       state.isEditArticlePopupVisible = !state.isEditArticlePopupVisible;
     },
     createCategory: (state, newCategory) => {
@@ -124,29 +122,34 @@ export default new Vuex.Store({
         id: uuidv4(),
         title: newCategory.name,
         parentCategory: newCategory.parentCategory,
-        articlesID: newCategory.articles
+        articlesID: newCategory.articles,
       });
     },
     setCategoryToRemoveID: (state, categoryID) => {
-      state.categoryIDToRemove = categoryID;
+      state.categoryToRemoveID = categoryID;
     },
-    removeCategory: (state, categoryID) => {
-      const childCategoriesIDToRemove = state.categories.filter(category => category.parentCategory === categoryID);
-      
+    removeCategory: function (state, categoryID) {
+      const childCategoriesIDToRemove = state.categories.filter(
+        (category) => category.parentCategory === categoryID
+      );
+
       if (childCategoriesIDToRemove.length) {
-        childCategoriesIDToRemove.forEach(category => {
+        childCategoriesIDToRemove.forEach((category) => {
           this.commit("removeCategory", category.id);
         });
       }
 
-      const categoryToRemoveIndex = state.categories.findIndex(category => category.id === categoryID);
-      state.categories.splice(categoryToRemoveIndex, 1);
+      state.categories = state.categories.filter(
+        (category) => category.id !== categoryID
+      );
     },
     updateCategoryToEditID: (state, categoryId) => {
       state.categoryToEditID = categoryId;
     },
     updateCategory: (state, updatedCategory) => {
-      const categoryToUpdateIndex = state.categories.findIndex(category => category.id === updatedCategory.id);
+      const categoryToUpdateIndex = state.categories.findIndex(
+        (category) => category.id === updatedCategory.id
+      );
       const categoryToUpdate = state.categories[categoryToUpdateIndex];
 
       categoryToUpdate.title = updatedCategory.title;
@@ -160,20 +163,21 @@ export default new Vuex.Store({
       const categoriesID = updatedArticle.categoriesID;
       const articleIDToAdd = updatedArticle.id;
 
-      state.categories
-        .forEach(category => {
-          let articlesIDSet = new Set (category.articlesID);
-          if (categoriesID.includes(category.id)) {
-            articlesIDSet.add(articleIDToAdd);
-          } else {
-            articlesIDSet.delete(articleIDToAdd);
-          }
-          category.articlesID = Array.from(articlesIDSet);
-        });
+      state.categories.forEach((category) => {
+        let articlesIDSet = new Set(category.articlesID);
+
+        if (categoriesID.includes(category.id)) {
+          articlesIDSet.add(articleIDToAdd);
+        } else {
+          articlesIDSet.delete(articleIDToAdd);
+        }
+
+        category.articlesID = Array.from(articlesIDSet);
+      });
     },
     resetCategories: (state) => {
       state.categories.splice(0);
-    }
+    },
   },
   actions: {
     toggleEditArticlePopup({ commit }, articleID) {
@@ -207,14 +211,13 @@ export default new Vuex.Store({
 
     fetchArticles({ commit }) {
       return new Promise((resolve) => {
-        setTimeout(async() => {
+        setTimeout(async () => {
           const articles = (await import("../mocks/articlesData")).default;
           commit("setArticles", articles);
           resolve();
         }, 1500);
       });
-
     },
   },
-  plugins: [vuexPersist.plugin]
+  plugins: [vuexPersist.plugin],
 });
