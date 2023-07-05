@@ -29,7 +29,7 @@
           <button
             class="category__menu-button"
             @click="toggleCategoryMenuVisibility"
-            @blur="onClickOutside">
+            @blur="hideMenu">
             <img
               src="../assets/svg/menu.svg"
               alt="Menu" />
@@ -144,7 +144,7 @@ export default {
     toggleCategoryMenuVisibility() {
       this.isCategoryMenuShown = !this.isCategoryMenuShown;
     },
-    onClickOutside() {
+    hideMenu() {
       this.isCategoryMenuShown = false;
     },
     openRemoveCategoryPopup() {
