@@ -18,8 +18,7 @@
       <button
         type="button"
         class="article-card__edit-button"
-        @click="openEditArticlePopup"
-      >
+        @click="openEditArticlePopup($vnode.key)">
         <img
           src="../assets/svg/pen.svg"
           alt="Edit" />
@@ -36,6 +35,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "ArticleCard",
   props: {
@@ -64,10 +65,10 @@ export default {
     toggleLike(id, liked) {
       this.$store.commit("toggleArticleLike", { id, liked });
     },
-    openEditArticlePopup() {
-      this.$store.dispatch("toggleEditArticlePopup", this.$vnode.key);
-    }
-  }
+    ...mapActions({
+      openEditArticlePopup: "toggleEditArticlePopup",
+    }),
+  },
 };
 </script>
 <style scoped>

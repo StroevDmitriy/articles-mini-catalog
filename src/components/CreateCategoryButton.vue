@@ -8,6 +8,7 @@
 
 <script>
 import CustomButton from "./UI/CustomButton.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "CreateCategoryButton",
@@ -15,10 +16,10 @@ export default {
     CustomButton,
   },
   methods: {
-    openPopup() {
-      this.$store.dispatch("toggleNewAndEditCategoryPopup");
-    }
-  }
+    ...mapActions({
+      openPopup: "toggleNewAndEditCategoryPopup",
+    }),
+  },
 };
 </script>
 <style scoped>

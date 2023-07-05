@@ -43,13 +43,15 @@
             <button
               type="button"
               class="category__button category__edit"
-              @mousedown="openNewAndEditCategoryPopup"
-            >Редактировать</button>
+              @mousedown="openNewAndEditCategoryPopup(id)">
+              Редактировать
+            </button>
             <button
               type="button"
               class="category__button category__remove"
-              @mousedown="openRemoveCategoryPopup"
-            >Удалить</button>
+              @mousedown="openRemoveCategoryPopup(id)">
+              Удалить
+            </button>
           </div>
         </div>
       </div>
@@ -87,6 +89,7 @@
 
 <script>
 import ArticleCard from "./ArticleCard.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "CategoryContent",
@@ -147,12 +150,10 @@ export default {
     hideMenu() {
       this.isCategoryMenuShown = false;
     },
-    openRemoveCategoryPopup() {
-      this.$store.dispatch("openRemoveCategoryPopup", this.id);
-    },
-    openNewAndEditCategoryPopup() {
-      this.$store.dispatch("toggleNewAndEditCategoryPopup", this.id);
-    },
+    ...mapActions(["openRemoveCategoryPopup"]),
+    ...mapActions({
+      openNewAndEditCategoryPopup: "toggleNewAndEditCategoryPopup",
+    }),
     async countMaxHeight() {
       this.contentMaxHeight = this.$refs.categoryContent.scrollHeight;
       await this.$nextTick();

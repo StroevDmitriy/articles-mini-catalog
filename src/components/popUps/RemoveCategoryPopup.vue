@@ -21,8 +21,7 @@
           buttonType="action"
           class="remove-category-popup__button remove-category-popup__remove-button"
           :fullWidth="false"
-          @click="removeCategory"
-        />
+          @click="removeCategory(categoryToRemoveID)" />
         <CustomButton
           buttonLabel="Отмена"
           buttonType="passive"
@@ -36,7 +35,7 @@
 
 <script>
 import CustomButton from "../UI/CustomButton.vue";
-import { mapState } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "RemoveCategoryPopup",
@@ -47,12 +46,10 @@ export default {
     ...mapState(["isRemoveCategoryPopupVisible", "categoryToRemoveID"]),
   },
   methods: {
-    closePopup() {
-      this.$store.commit("toggleRemoveCategoryPopup");
-    },
-    removeCategory() {
-      this.$store.dispatch("removeCategory", this.categoryToRemoveID);
-    }
+    ...mapMutations({
+      closePopup: "toggleRemoveCategoryPopup",
+    }),
+    ...mapActions(["removeCategory"]),
   },
 };
 </script>

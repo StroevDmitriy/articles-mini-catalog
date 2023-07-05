@@ -76,7 +76,7 @@
 <script>
 import CustomButton from "../UI/CustomButton.vue";
 import CustomInput from "../UI/CustomInput.vue";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "EditArticlePopup",
@@ -109,9 +109,9 @@ export default {
         categoriesID: this.categoriesSelected.map((category) => category.id),
       });
     },
-    closePopup() {
-      this.$store.dispatch("toggleEditArticlePopup");
-    },
+    ...mapActions({
+      closePopup: "toggleEditArticlePopup",
+    }),
     openCategoriesOptions(optionsName) {
       this.categoriesOptions.value = this.$store.getters.getRestCategories(
         this.categoriesSelected.map((category) => category.id)
