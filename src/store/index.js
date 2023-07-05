@@ -92,24 +92,19 @@ export default new Vuex.Store({
     },
     toggleArticleLike: (state, payload) => {
       const { id, liked } = payload;
-      const article = state.articles.find(el => el.id === id);
-      
-      if ("liked" in article && liked) {
-        article.likes--;
-      } else if ("liked" in article && !liked) {
-        article.likes++;
-      } else {
-        Vue.set(article, "likes", 1);
-      }
+      const article = state.articles.find((el) => el.id === id);
 
       if ("liked" in article) {
+        article.likes += liked ? -1 : 1;
         article.liked = !article.liked;
       } else {
         Vue.set(article, "liked", true);
+        Vue.set(article, "likes", 1);
       }
     },
-      state.isNewAndEditCategoryPopupVisible = !state.isNewAndEditCategoryPopupVisible;
     toggleNewAndEditCategoryPopup: (state) => {
+      state.isNewAndEditCategoryPopupVisible =
+        !state.isNewAndEditCategoryPopupVisible;
     },
     toggleRemoveCategoryPopup: (state) => {
       state.isRemoveCategoryPopupVisible = !state.isRemoveCategoryPopupVisible;
