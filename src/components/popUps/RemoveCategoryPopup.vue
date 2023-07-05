@@ -2,16 +2,12 @@
   <div
     :class="[
       'popup-container',
-      { 'popup-container__shown': isRemoveCategoryPopupVisible }
-    ]"
-  >
+      { 'popup-container__shown': isRemoveCategoryPopupVisible },
+    ]">
     <div
       class="popup-container__overlay"
-      @click="closePopup"
-    ></div>
-    <section
-      class="popup-container__popup remove-category-popup"
-    >
+      @click="closePopup"></div>
+    <section class="popup-container__popup remove-category-popup">
       <div class="remove-category-popup__ico-container"></div>
 
       <div class="remove-category-popup__content">
@@ -32,8 +28,7 @@
           buttonType="passive"
           class="remove-category-popup__button remove-category-popup__cancel-button"
           :fullWidth="false"
-          @click="closePopup"
-        />
+          @click="closePopup" />
       </div>
     </section>
   </div>
@@ -49,10 +44,7 @@ export default {
     CustomButton,
   },
   computed: {
-    ...mapState([
-      "isRemoveCategoryPopupVisible",
-      "categoryToRemoveID"
-    ]),
+    ...mapState(["isRemoveCategoryPopupVisible", "categoryToRemoveID"]),
   },
   methods: {
     closePopup() {
@@ -63,7 +55,6 @@ export default {
     }
   },
 };
-
 </script>
 <style scoped>
 .remove-category-popup {
@@ -77,7 +68,7 @@ export default {
   height: 38px;
   width: 38px;
   margin: 0 auto 12px;
-  background-image: url(../../assets/svg/question-circle.svg);;
+  background-image: url(../../assets/svg/question-circle.svg);
 }
 
 .remove-category-popup h4 {

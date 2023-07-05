@@ -4,18 +4,15 @@
       <button
         type="button"
         class="article-card__like-button"
-        @click="toggleLike($vnode.key, liked)"
-      >
+        @click="toggleLike($vnode.key, liked)">
         <img
           src="../assets/svg/like_default.svg"
-          alt="Like"
-          v-if="!liked"
-        >
+          alt="Like inactive"
+          v-if="!liked" />
         <img
           src="../assets/svg/like_active.svg"
-          alt="Like"
-          v-else
-        >
+          alt="Liked"
+          v-else />
         {{ likes }}
       </button>
       <button
@@ -25,15 +22,13 @@
       >
         <img
           src="../assets/svg/pen.svg"
-          alt="Like"
-        >
+          alt="Edit" />
       </button>
     </div>
     <div class="article-card__preview-container">
       <img
-        :src="require(`@/assets/images/${previewName}.png`)" 
-        alt="Article preview"
-      />
+        :src="require(`@/assets/images/${previewName}.png`)"
+        alt="Article preview" />
     </div>
     <h4 class="article-card__title">{{ title }}</h4>
     <p class="article-card__description">{{ description }}</p>
@@ -48,7 +43,7 @@ export default {
       type: String,
       default: "article-image",
     },
-    title : {
+    title: {
       type: String,
       default: "Нет заголовка",
     },
@@ -63,7 +58,7 @@ export default {
     liked: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   methods: {
     toggleLike(id, liked) {
@@ -74,7 +69,6 @@ export default {
     }
   }
 };
-
 </script>
 <style scoped>
 .article-card {
@@ -82,7 +76,7 @@ export default {
   min-width: 280px;
   box-sizing: border-box;
   height: 295px;
-  border: 1px solid #BFC3D5;
+  border: 1px solid #bfc3d5;
   border-radius: 10px;
   padding: 15px;
 }
@@ -95,12 +89,12 @@ export default {
 
 .article-card__like-button {
   align-items: center;
-  color: #A0A6BF;
+  color: #a0a6bf;
   font-size: 12px;
 }
 
 .article-card__edit-button {
-  border: none
+  border: none;
 }
 
 .article-card__preview-container {
@@ -124,6 +118,6 @@ export default {
   overflow: hidden;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
-  color: #6A6E7E;
+  color: #6a6e7e;
 }
 </style>

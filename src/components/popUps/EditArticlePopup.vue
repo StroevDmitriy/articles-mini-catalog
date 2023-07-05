@@ -2,16 +2,12 @@
   <div
     :class="[
       'popup-container',
-      { 'popup-container__shown': isEditArticlePopupVisible }
-    ]"
-  >
+      { 'popup-container__shown': isEditArticlePopupVisible },
+    ]">
     <div
       class="popup-container__overlay"
-      @click="closePopup"
-    ></div>
-    <section
-      class="popup-container__popup common-popup"
-    >
+      @click="closePopup"></div>
+    <section class="popup-container__popup common-popup">
       <form action="">
         <h3>Изменение расположения статьи</h3>
         <fieldset class="common-popup__fields">
@@ -24,22 +20,21 @@
                 fieldName="categoriesOptions"
                 noType
                 @click="openCategoriesOptions($event)"
-                @blur="hideOptions('categoriesOptions')"
-              />
+                @blur="hideOptions('categoriesOptions')" />
               <div
                 class="select__options"
-                v-show="categoriesOptions.isVisible"
-              >
+                v-show="categoriesOptions.isVisible">
                 <button
                   v-for="option in categoriesOptions.value"
                   :key="option.id"
                   class="select__option"
                   type="button"
-                  @mousedown="chooseCategoriesOption({
-                    id: option.id,
-                    title: option.title
-                  })"
-                >
+                  @mousedown="
+                    chooseCategoriesOption({
+                      id: option.id,
+                      title: option.title,
+                    })
+                  ">
                   {{ option.title }}
                 </button>
               </div>
@@ -48,13 +43,11 @@
               <div
                 v-for="category in categoriesSelected"
                 :key="category.id"
-                class="select__selected-option"
-              >
+                class="select__selected-option">
                 <button
                   class="select__remove-option-button"
                   type="button"
-                  @click="removeSelectedCategory(category.id)"
-                ></button>
+                  @click="removeSelectedCategory(category.id)"></button>
                 {{ category.title }}
               </div>
             </div>
@@ -67,15 +60,13 @@
             buttonType="action"
             class="common-popup__button common-popup__save-button"
             :fullWidth="true"
-            @click="updateArticle"
-          />
+            @click="updateArticle" />
           <CustomButton
             buttonLabel="Отмена"
             buttonType="passive"
             class="common-popup__button"
             :fullWidth="true"
-            @click="closePopup"
-          />
+            @click="closePopup" />
         </fieldset>
       </form>
     </section>
@@ -91,13 +82,13 @@ export default {
   name: "EditArticlePopup",
   components: {
     CustomButton,
-    CustomInput
+    CustomInput,
   },
   props: {
     articleToEditID: {
       type: String || null,
       default: null,
-    }
+    },
   },
   data() {
     return {
@@ -115,7 +106,7 @@ export default {
     updateArticle() {
       this.$store.dispatch("updateArticle", {
         id: this.articleToEditID,
-        categoriesID: this.categoriesSelected.map(category => category.id),
+        categoriesID: this.categoriesSelected.map((category) => category.id),
       });
     },
     closePopup() {
@@ -123,7 +114,7 @@ export default {
     },
     openCategoriesOptions(optionsName) {
       this.categoriesOptions.value = this.$store.getters.getRestCategories(
-        this.categoriesSelected.map(category => category.id)
+        this.categoriesSelected.map((category) => category.id)
       );
 
       this.showOptions(optionsName);
@@ -142,15 +133,17 @@ export default {
       this.hideOptions("categoriesOptions");
     },
     removeSelectedCategory(categoryID) {
-      const categoryIndex = this.categoriesSelected.findIndex(category => category.id == categoryID);
+      const categoryIndex = this.categoriesSelected.findIndex(
+        (category) => category.id == categoryID
+      );
       this.categoriesSelected.splice(categoryIndex, 1);
-    }
+    },
   },
   watch: {
     articleToEditID(articleID) {
-      this.categoriesSelected = this.$store.getters.getCategoriesWithArticle(articleID);
-    }
-  }
+      this.categoriesSelected =
+        this.$store.getters.getCategoriesWithArticle(articleID);
+    },
+  },
 };
-
 </script>

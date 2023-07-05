@@ -3,8 +3,7 @@
     button-label="Создать категорию"
     button-type="action"
     class="create-category-button"
-    @click="openPopup"
-  />
+    @click="openPopup" />
 </template>
 
 <script>
@@ -23,7 +22,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .create-category-button {
   position: relative;
   padding-right: 48px;
@@ -31,7 +29,7 @@ export default {
 
 .create-category-button::after {
   position: absolute;
-  content: '+';
+  content: "+";
   top: 50%;
   right: 21px;
   transform: translateY(calc(-50% - 2px));

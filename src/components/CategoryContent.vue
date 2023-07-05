@@ -3,44 +3,43 @@
     :class="[
       'category',
       {
-        'category_child': !isParentCategory
-      }
-    ]"
-  >
+        category_child: !isParentCategory,
+      },
+    ]">
     <div class="category__header">
-      <h2 v-if="isParentCategory">{{ title }} <span>({{ articlesCount }})</span></h2>
-      <h3 v-else>{{ title }} <span>({{ articlesCount }})</span></h3>
+      <h2 v-if="isParentCategory">
+        {{ title }} <span>({{ articlesCount }})</span>
+      </h2>
+      <h3 v-else>
+        {{ title }} <span>({{ articlesCount }})</span>
+      </h3>
       <div class="category__buttons">
         <button
           :class="[
             'category__toggle-collapse',
-            { 'category__toggle-collapse_collapsed': isCategoryShown }
+            { 'category__toggle-collapse_collapsed': isCategoryShown },
           ]"
-          @click="toggleCategoryVisibility"
-        >
+          @click="toggleCategoryVisibility">
           <img
             src="../assets/svg/chevron-down.svg"
-            alt="Show/Hide"
-          >
+            alt="Show/Hide" />
         </button>
 
         <div class="category__menu-block">
           <button
             class="category__menu-button"
             @click="toggleCategoryMenuVisibility"
-            @blur="onClickOutside"
-          >
+            @blur="onClickOutside">
             <img
               src="../assets/svg/menu.svg"
-              alt="Menu"
-            >
+              alt="Menu" />
           </button>
-          <div class="category__menu"
+          <div
+            class="category__menu"
             :class="[
               'category__menu',
-              { 'category__menu_collapsed': !isCategoryMenuShown }
-            ]"
-          >
+              { category__menu_collapsed: !isCategoryMenuShown },
+            ]">
             <button
               type="button"
               class="category__button category__edit"
@@ -58,21 +57,19 @@
     <section
       :class="[
         'category__content',
-        { 'category__content_hided': !isCategoryShown }
+        { category__content_hided: !isCategoryShown },
       ]"
       ref="categoryContent"
-      :style="{ 'max-height': isCategoryShown ? contentMaxHeight + 'px' : 0}"
-    >
+      :style="{ 'max-height': isCategoryShown ? contentMaxHeight + 'px' : 0 }">
       <section class="category__articles-list">
-        <ArticleCard 
+        <ArticleCard
           v-for="article in categoryArticles"
           :key="article.id"
           :title="article.title"
           :previewName="article.imgName"
           :description="article.description"
           :likes="article.likes"
-          :liked="article.liked"
-        />
+          :liked="article.liked" />
       </section>
       <div v-if="childCategoriesData.length">
         <CategoryContent
@@ -82,8 +79,7 @@
           :isParentCategory="false"
           :title="category.title"
           :articlesID="category.articlesID"
-          :childCategoriesID="category.childCategoriesID"
-        />
+          :childCategoriesID="category.childCategoriesID" />
       </div>
     </section>
   </section>
@@ -120,7 +116,7 @@ export default {
     hasParent: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   data() {
     return {
@@ -139,7 +135,7 @@ export default {
     },
     articlesCount() {
       return this.$store.getters.getArticlesCount(this.id);
-    }
+    },
   },
   methods: {
     toggleCategoryVisibility() {
@@ -163,19 +159,18 @@ export default {
       if (this.hasParent) {
         this.isCategoryShown = false;
       }
-    }
+    },
   },
   mounted() {
     this.countMaxHeight();
   },
   watch: {
-    childCategoriesData: async function() {
+    childCategoriesData: async function () {
       await this.$nextTick();
       this.countMaxHeight();
-    }
-  }
+    },
+  },
 };
-
 </script>
 <style scoped>
 .category {
@@ -188,7 +183,7 @@ export default {
 
 .category__content {
   transform-origin: 50% 0;
-  transition: max-height .5s, overflow .5s;
+  transition: max-height 0.5s, overflow 0.5s;
   overflow: visible;
 }
 
@@ -211,7 +206,7 @@ export default {
 }
 
 .category__header span {
-  color: #A0A6BF;
+  color: #a0a6bf;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
@@ -226,7 +221,7 @@ export default {
   width: 143px;
   padding: 6px 8px 6px 8px;
   border-radius: 5px;
-  color: #4D5163;
+  color: #4d5163;
   font-size: 14px;
   font-weight: 500;
   line-height: 22px;
@@ -238,7 +233,7 @@ export default {
 }
 
 .category__toggle-collapse img {
-  transition: transform .3s;
+  transition: transform 0.3s;
 }
 
 .category__toggle-collapse_collapsed img {
@@ -246,7 +241,7 @@ export default {
 }
 
 .category__menu-block {
-  position: relative;  
+  position: relative;
 }
 
 .category__menu {
@@ -261,7 +256,7 @@ export default {
   box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.17);
   gap: 4px;
   transform-origin: 50% 0;
-  transition: transform .2s;
+  transition: transform 0.2s;
   z-index: 1000;
 }
 
